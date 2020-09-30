@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LigneDepenseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -74,6 +76,21 @@ class LigneDepense
      * @ORM\ManyToOne(targetEntity=CategorieLigne::class, inversedBy="ligneDepenses")
      */
     private $categorieLigne;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=LigneDepense::class, inversedBy="compteFils")
+     */
+    private $compteParent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LigneDepense::class, mappedBy="compteParent")
+     */
+    private $compteFils;
+
+    public function __construct()
+    {
+        $this->compteFils = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -208,6 +225,49 @@ class LigneDepense
     public function setCategorieLigne(?CategorieLigne $categorieLigne): self
     {
         $this->categorieLigne = $categorieLigne;
+
+        return $this;
+    }
+
+    public function getCompteParent(): ?self
+    {
+        return $this->compteParent;
+    }
+
+    public function setCompteParent(?self $compteParent): self
+    {
+        $this->compteParent = $compteParent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getCompteFils(): Collection
+    {
+        return $this->compteFils;
+    }
+
+    public function addCompteFil(self $compteFil): self
+    {
+        if (!$this->compteFils->contains($compteFil)) {
+            $this->compteFils[] = $compteFil;
+            $compteFil->setCompteParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompteFil(self $compteFil): self
+    {
+        if ($this->compteFils->contains($compteFil)) {
+            $this->compteFils->removeElement($compteFil);
+            // set the owning side to null (unless already changed)
+            if ($compteFil->getCompteParent() === $this) {
+                $compteFil->setCompteParent(null);
+            }
+        }
 
         return $this;
     }
