@@ -2,15 +2,54 @@
 
 namespace App\Entity;
 
+
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\LigneDepenseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *collectionOperations={
+ *     "get"={
+ *     "normalization_Context"={"groups"={"comptelier"}},
+ *     "path"="/lignes"
+ *     }
+ * ,"post"={"path"="/lignes"}
+ * },
+ *     itemOperations={
+ *     "get"={
+
+ *     "normalisation_context"={"groups"={"infos_ligne"}},
+ *     "path"="/lignes/{id}"
+ *     }
+ *      ,"delete"={"path"="/lignes/{id}"}
+ *      ,"patch"={"path"="/lignes/{id}"}
+ *      ,"put"={"path"="/lignes/{id}"}
+ * },
+ *subresourceOperations={
+ *     "compte_fils_get_subresource"={"path"="/lignes/{id}/fils"},
+ *     "api_livre_comptes_ligne_depenses_get_subresource"={
+ *     "normalization_context"={"groups"={"lier_livre"}}
+ *     },
+ *     "api_ligne_depenses_compte_fils_get_subresource"={
+ *     "normalization_context"={"groups"={"ligne_fils"}}
+ *     }
+ *     }
+ *
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"hierachieLigne","numeroLigne"})
+ *@ApiFilter(NumericFilter::class, properties={"numeroLigne"})
  * @ORM\Entity(repositoryClass=LigneDepenseRepository::class)
+ *
  */
 class LigneDepense
 {
@@ -18,21 +57,26 @@ class LigneDepense
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"comptelier","lier_livre","ligne_fils"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"comptelier","lier_livre","ligne_fils"})
      */
     private $numeroLigne;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Groups({"lier_livre","ligne_fils"})
      */
     private $libelleLigne;
 
     /**
      * @ORM\Column(type="string", length=100)
+     *
      */
     private $denominationLigne;
 
@@ -43,6 +87,8 @@ class LigneDepense
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"comptelier","lier_livre","ligne_fils"})
+     *
      */
     private $hierachieLigne;
 
@@ -69,23 +115,33 @@ class LigneDepense
     /**
      * @ORM\ManyToOne(targetEntity=LivreCompte::class, inversedBy="ligneDepenses")
      * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $livreCompte;
 
     /**
      * @ORM\ManyToOne(targetEntity=CategorieLigne::class, inversedBy="ligneDepenses")
+     *  @Groups({"comptelier","lier_livre","ligne_fils"})
      */
     private $categorieLigne;
 
     /**
      * @ORM\ManyToOne(targetEntity=LigneDepense::class, inversedBy="compteFils")
+     *
+     *
      */
     private $compteParent;
 
     /**
      * @ORM\OneToMany(targetEntity=LigneDepense::class, mappedBy="compteParent")
+     *@ApiSubresource()
+     *
+     *
+     *
      */
     private $compteFils;
+
+
 
     public function __construct()
     {
@@ -271,4 +327,6 @@ class LigneDepense
 
         return $this;
     }
+
+
 }

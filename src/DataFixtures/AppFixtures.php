@@ -15,7 +15,7 @@ class AppFixtures extends Fixture
     {
         $faker=Factory::create('FR-fr');
 
-        for($a=1; $a<=6; $a++)
+        for($a=1; $a<=10; $a++)
         {
             $decision1= $faker->firstName();
             $description1=$faker->paragraph(1);
@@ -35,7 +35,7 @@ class AppFixtures extends Fixture
             $manager->persist($categorie);
         }
 
-        for ($i=1; $i<=3; $i++)
+        for ($i=1; $i<=6; $i++)
         {
             $decision= $faker->sentence(6,false);
             $description=$faker->paragraph(1);
@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
 
         }
 
-        for($j=1; $j<=8; $j++)
+        for($j=1; $j<=40; $j++)
         {
             $decision2=$faker->sentence(6,false);
             $description2=$faker->paragraph(1);
@@ -70,11 +70,12 @@ class AppFixtures extends Fixture
                 ->setDescriptionLigne($decision2)
                 ->setLibelleLigne($decision2)
                 ->setNumeroLigne(mt_rand(100,1000))
-                ->setCategorieLigne($this->getReference("category".mt_rand(1,6)))
+                ->setCategorieLigne($this->getReference("category".mt_rand(1,10)))
                 ->setDenominationLigne($decision2)
                 ->setModifAt(new \DateTimeImmutable())
-                ->setLivreCompte($this->getReference("livre" .mt_rand(1,3)))
-                ->setHierachieLigne('CHAPITRE');
+                ->setLivreCompte($this->getReference("livre" .mt_rand(1,6)))
+                ->setHierachieLigne('CHAPITRE')
+                ;
 
 
             $this->addReference("parent{$j}", $compte);
@@ -84,7 +85,7 @@ class AppFixtures extends Fixture
         }
 
 
-        for($b=1; $b<=10; $b++)
+        for($b=1; $b<=100; $b++)
         {
             $decision2= $faker->sentence(6,false);
             $description2=$faker->paragraph(1);
@@ -97,11 +98,11 @@ class AppFixtures extends Fixture
                 ->setDescriptionLigne($decision2)
                 ->setLibelleLigne($decision2)
                 ->setNumeroLigne(mt_rand(100,1000))
-                ->setCategorieLigne($this->getReference("category".mt_rand(1,6)))
+                ->setCategorieLigne($this->getReference("category".mt_rand(1,10)))
                 ->setDenominationLigne($decision2)
                 ->setModifAt(new \DateTimeImmutable())
-                ->setLivreCompte($this->getReference("livre" .mt_rand(1,3)))
-                ->setCompteParent($this->getReference("parent" .mt_rand(1,8)))
+                ->setLivreCompte($this->getReference("livre" .mt_rand(1,6)))
+                ->setCompteParent($this->getReference("parent" .mt_rand(1,40)))
                 ->setHierachieLigne("ARTICLE");
 
             $this->addReference("salut{$b}", $compte1);
@@ -111,7 +112,7 @@ class AppFixtures extends Fixture
         }
 
 
-        for($c=1; $c<=10; $c++)
+        for($c=1; $c<=370; $c++)
         {
             $decision2= $faker->sentence(6,false);
             $description2=$faker->paragraph(1);
@@ -124,11 +125,11 @@ class AppFixtures extends Fixture
                 ->setDescriptionLigne($decision2)
                 ->setLibelleLigne($decision2)
                 ->setNumeroLigne(mt_rand(100,1000))
-                ->setCategorieLigne($this->getReference("category".mt_rand(1,6)))
+                ->setCategorieLigne($this->getReference("category".mt_rand(1,10)))
                 ->setDenominationLigne($decision2)
                 ->setModifAt(new \DateTimeImmutable())
-                ->setLivreCompte($this->getReference("livre" .mt_rand(1,3)))
-                ->setCompteParent($this->getReference("salut" .mt_rand(1,10)))
+                ->setLivreCompte($this->getReference("livre" .mt_rand(1,6)))
+                ->setCompteParent($this->getReference("salut" .mt_rand(1,100)))
                 ->setHierachieLigne("PARAGRAPHE");
 
             //$this->addReference("parent", $compte);

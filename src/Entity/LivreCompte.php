@@ -3,13 +3,40 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\LivreCompteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *     "get"={
+ *     "normalization_context"={
+ *     "groups"={"infos"}
+ *     }
+ *     ,"path"="/livres"}
+ * ,"post"= {"path"="/livres"}
+ *     }
+ *     ,itemOperations={
+ *     "get"={
+ *     "normalization_context"={"groups"={"infos_details"}},
+ *     "path"="/livres/{id}"
+ *     }
+ *      ,"delete"={"path"="/livres/{id}"}
+ *      ,"patch"={"path"="/livres/{id}"}
+ *      ,"put"={"path"="/livres/{id}"}
+ * },
+ *     subresourceOperations={
+
+ *     "ligne_depenses_get_subresource"={"path"="/livres/{id}/lignes"}
+ *     }
+ *)
+ *
+ *
+ *
  * @ORM\Entity(repositoryClass=LivreCompteRepository::class)
  */
 class LivreCompte
@@ -18,46 +45,55 @@ class LivreCompte
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"infos","infos_details"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="date_immutable")
+     * @Groups({"infos","infos_details"})
      */
     private $anneeRef;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"infos_details"})
      */
     private $decretLivre;
 
     /**
      * @ORM\Column(type="date_immutable")
+     * @Groups({"infos_details"})
      */
     private $adoptionDate;
 
     /**
      * @ORM\Column(type="date_immutable")
+     * @Groups({"infos_details"})
      */
     private $executionDate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"infos_details"})
      */
     private $descriptionLivre;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"infos_details"})
      */
     private $creationAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"infos_details"})
      */
     private $modifAt;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"infos_details"})
      */
     private $isActiver;
 
@@ -68,6 +104,8 @@ class LivreCompte
 
     /**
      * @ORM\OneToMany(targetEntity=LigneDepense::class, mappedBy="livreCompte", orphanRemoval=true)
+     * @ApiSubresource(maxDepth=1)
+     * @Groups({"infos_details","lier_livre"})
      */
     private $ligneDepenses;
 

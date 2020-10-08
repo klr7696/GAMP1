@@ -2,14 +2,38 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CategorieLigneRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *     "get"=
+ *     {"normalization_context"=
+ *     {"groups"= {"cate"}
+ *     },
+ *     "path"="/categories"}
+ * ,"post"={"path"="/categories"}
+ * },
+ *     itemOperations={
+ *     "get"={
+
+ *     "normalization_context"={"groups"={"categorie_detail"}},
+ *     "path"="/categories/{id}"
+ *     }
+ *     ,"delete"={"path"="/categories/{id}"}
+ *      ,"patch"={"path"="/categories/{id}"}
+ *      ,"put"={"path"="/categories/{id}"}
+ * }
+ *
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"nomCat","abreviationCat"})
  * @ORM\Entity(repositoryClass=CategorieLigneRepository::class)
  */
 class CategorieLigne
@@ -18,46 +42,55 @@ class CategorieLigne
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"cate","categorie_detail"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"cate","categorie_detail","lier_livre","ligne_fils"})
      */
     private $nomCat;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups({"cate","categorie_detail"})
      */
     private $abreviationCat;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"categorie_detail"})
      */
     private $descriptionCat;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"categorie_detail"})
      */
     private $creationAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"categorie_detail"})
      */
     private $modifAt;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"categorie_detail"})
      */
     private $isAffecter;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      */
     private $isNonSupprimable;
 
     /**
      * @ORM\OneToMany(targetEntity=LigneDepense::class, mappedBy="categorieLigne")
+     *
      */
     private $ligneDepenses;
 
