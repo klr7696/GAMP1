@@ -10,9 +10,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
+ *
  *     collectionOperations={
  *     "get"=
  *     {"normalization_context"=
@@ -28,7 +30,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     "path"="/categories/{id}"
  *     }
  *     ,"delete"={"path"="/categories/{id}"}
- *      ,"patch"={"path"="/categories/{id}"}
+ *      ,"patch"={
+ *     "path"="/categories/{id}"
+ *
+ *     }
  *      ,"put"={"path"="/categories/{id}"}
  * }
  *
@@ -49,12 +54,18 @@ class CategorieLigne
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"cate","categorie_detail","lier_livre","ligne_fils"})
+     * @Assert\NotBlank(message="le champs est obligatoire")
+     * @Assert\Length(min=5, minMessage="nombre de caractère plus petit que 5 ",
+     *     max=50, maxMessage=" nombre de caractère plus grand que 50  ")
      */
     private $nomCat;
 
     /**
      * @ORM\Column(type="string", length=10)
      * @Groups({"cate","categorie_detail"})
+     * @Assert\NotBlank(message="le champs est obligatoire")
+     * @Assert\Length(min=3, minMessage="nombre de caractère plus petit que 3 ",
+     *     max=10, maxMessage=" nombre de caractère plus grand que 10  ")
      */
     private $abreviationCat;
 
