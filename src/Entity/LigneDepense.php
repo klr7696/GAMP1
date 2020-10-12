@@ -11,10 +11,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
@@ -51,7 +50,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *@ApiFilter(NumericFilter::class, properties={"numeroLigne"})
  * @ORM\Entity(repositoryClass=LigneDepenseRepository::class)
  *
- *
  */
 class LigneDepense
 {
@@ -67,16 +65,12 @@ class LigneDepense
     /**
      * @ORM\Column(type="integer")
      * @Groups({"comptelier","lier_livre","ligne_fils"})
-     * @Assert\Type(type="numeric",message="doit être numerique")
      */
     private $numeroLigne;
 
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups({"lier_livre","ligne_fils"})
-     * @Assert\NotBlank(message="le champs est obligatoire")
-     * @Assert\Length(min=5, minMessage="nombre de caractère plus petit que 5 ",
-     *     max=255, maxMessage=" nombre de caractère plus grand que 255  ")
      */
     private $libelleLigne;
 

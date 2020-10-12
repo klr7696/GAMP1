@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -53,32 +52,24 @@ class LivreCompte
     /**
      * @ORM\Column(type="date_immutable")
      * @Groups({"infos","infos_details"})
-     *
      */
     private $anneeRef;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=100)
      * @Groups({"infos_details"})
-     * @Assert\NotBlank(message="le champs est obligatoire")
-     * @Assert\Length(min=5, minMessage="nombre de caractère plus petit que 5 ",
-     *     max=50, maxMessage=" nombre de caractère plus grand que 50  ")
      */
     private $decretLivre;
 
     /**
      * @ORM\Column(type="date_immutable")
      * @Groups({"infos_details"})
-     * @Assert\NotBlank(message="le champs est obligatoire")
-     * @Assert\Date(message="renseigner une date")
      */
     private $adoptionDate;
 
     /**
      * @ORM\Column(type="date_immutable")
      * @Groups({"infos_details"})
-     * @Assert\NotBlank(message="le champs est obligatoire")
-     * @Assert\Date(message="renseigner une date")
      */
     private $executionDate;
 
