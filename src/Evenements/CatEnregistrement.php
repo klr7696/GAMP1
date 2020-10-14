@@ -6,6 +6,7 @@ namespace App\Evenements;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\CategorieLigne;
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -25,10 +26,22 @@ class CatEnregistrement implements EventSubscriberInterface
     {
         $result= $event->getControllerResult();
         $method= $event->getRequest()->getMethod();
-        if($result instanceof CategorieLigne && $method==='POST')
+        if($result instanceof CategorieLigne && $method==='POST'||$result instanceof CategorieLigne && $method==='PUT')
         {
-            $result->setIsNonSupprimable(false);
+
+
             $result->setIsAffecter(false);
+            $result->setIsNonSupprimable(false);
+            if($method==='POST'){
+                $date1 = new \DateTimeImmutable('now',new \DateTimeZone('UTC'));
+                $result->setCreationAt($date1);
+                                }
+            elseif($method==='PUT'){
+                $date= new \DateTime('now', new \DateTimeZone('UTC'));
+                $result->setModifAt($date);
+                                }
+
+
         }
         //dd($result);
     }
