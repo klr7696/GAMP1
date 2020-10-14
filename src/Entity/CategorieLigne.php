@@ -74,7 +74,7 @@ class CategorieLigne
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"categorie_detail"})
      */
-    private $modifAt;
+    private  $modifAt;
 
     /**
      * @ORM\Column(type="boolean")
@@ -159,6 +159,7 @@ class CategorieLigne
 
     public function setModifAt(?\DateTimeInterface $modifAt): self
     {
+
         $this->modifAt = $modifAt;
 
         return $this;
