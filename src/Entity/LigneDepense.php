@@ -10,6 +10,7 @@ use App\Repository\LigneDepenseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -46,6 +47,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
  *     }
  *
  * )
+ * @UniqueEntity(fields={"numeroLigne","livreCompte"},message="le numero de compte existe")
  * @ApiFilter(SearchFilter::class, properties={"hierachieLigne","numeroLigne"})
  *@ApiFilter(NumericFilter::class, properties={"numeroLigne"})
  * @ORM\Entity(repositoryClass=LigneDepenseRepository::class)

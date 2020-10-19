@@ -50,7 +50,7 @@ class AppFixtures extends Fixture
                 ->setDecretLivre($decision)
                 ->setDescriptionLivre($description)
                 ->setModifAt($date1)
-                ->setAnneeRef($date);
+                ->setAnneeRef(mt_rand(2000,2500));
 
             $this->addReference("livre{$i}", $livre);
 

@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ApiResource(
@@ -33,6 +34,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * }
  *
  * )
+ * @UniqueEntity("nomCat",message="le nom de la categorie existe")
+ * @UniqueEntity("abreviationCat", message="Cette abreviation existe")
  * @ApiFilter(SearchFilter::class, properties={"nomCat","abreviationCat"})
  * @ORM\Entity(repositoryClass=CategorieLigneRepository::class)
  */

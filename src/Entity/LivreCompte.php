@@ -8,6 +8,7 @@ use App\Repository\LivreCompteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -34,10 +35,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "ligne_depenses_get_subresource"={"path"="/livres/{id}/lignes"}
  *     }
  *)
+ * @UniqueEntity("anneeRef", message="cet livre existe")
+ * @UniqueEntity("decretLivre",message="ce decret est utilisé pour un livre")
  *
  *
- *
- * @ORM\Entity(repositoryClass=LivreCompteRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\LivreCompteRepository", repositoryClass=LivreCompteRepository::class)
  */
 class LivreCompte
 {
@@ -50,11 +52,9 @@ class LivreCompte
     private $id;
 
     /**
-     * @ORM\Column(type="date_immutable")
-     * @Groups({"infos","infos_details"})
+     * @ORM\Column(type="integer")
      */
     private $anneeRef;
-
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"infos_details"})
@@ -109,6 +109,8 @@ class LivreCompte
      */
     private $ligneDepenses;
 
+
+
     public function __construct()
     {
         $this->ligneDepenses = new ArrayCollection();
@@ -119,17 +121,6 @@ class LivreCompte
         return $this->id;
     }
 
-    public function getAnneeRef(): ?\DateTimeImmutable
-    {
-        return $this->anneeRef;
-    }
-
-    public function setAnneeRef(\DateTimeImmutable $anneeRef): self
-    {
-        $this->anneeRef = $anneeRef;
-
-        return $this;
-    }
 
     public function getDecretLivre(): ?string
     {
@@ -254,6 +245,18 @@ class LivreCompte
                 $ligneDepense->setLivreCompte(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAnneeRef(): ?int
+    {
+        return $this->anneeRef;
+    }
+
+    public function setAnneeRef(int $anneeRef): self
+    {
+        $this->anneeRef = $anneeRef;
 
         return $this;
     }

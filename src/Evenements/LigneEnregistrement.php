@@ -7,12 +7,14 @@ namespace App\Evenements;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\LigneDepense;
 use App\Entity\LivreCompte;
+use Container40wfQtm\getLivreCompteRepositoryService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class LigneEnregistrement implements EventSubscriberInterface
 {
+
 
     public static function getSubscribedEvents()
     {
@@ -27,11 +29,11 @@ class LigneEnregistrement implements EventSubscriberInterface
         $result = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
         if ($result instanceof LigneDepense && $method === 'POST' || $result instanceof LigneDepense && $method === 'PUT') {
+$salut = new LivreCompte();
 
 
             $result->setIsMouvementer(false)
                 ->setIsNonSupprimable(false);
-                //->setLivreCompte();
             if ($method === 'POST') {
                 $date1 = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
                 $result->setCreationAt($date1);
