@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -52,18 +53,26 @@ class CategorieLigne
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"cate","categorie_detail","lier_livre","ligne_fils"})
+     * @Assert\NotBlank(message="ce champs doit être fournit")
+     * @Assert\Length(min="3", minMessage="les caractère doivent exceder 3",
+     *     max="50", maxMessage="es caractère ne doivent pas exceder 50")
      */
     private $nomCat;
 
     /**
      * @ORM\Column(type="string", length=10)
      * @Groups({"cate","categorie_detail"})
+     * @Assert\NotBlank(message="ce champs doit être fournit")
+     * @Assert\Length(min="3", minMessage="les caractère doivent exceder 3",
+     *     max="50", maxMessage="es caractère ne doivent pas exceder 10")
      */
     private $abreviationCat;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"categorie_detail"})
+     * @Assert\Length(min="3", minMessage="les caractère doivent exceder 3",
+     *     max="50", maxMessage="es caractère ne doivent pas exceder 255")
      */
     private $descriptionCat;
 

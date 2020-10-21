@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -52,23 +53,36 @@ class LivreCompte
     private $id;
 
     /**
+     *@Assert\Type("integer",message="hello")
+     *@Assert\Length(min= 4, max= 4, exactMessage="l'annee n'est pas bien ecrite")
+     * @Assert\NotBlank(message="l'année de reference doit être fournit")
+     * @Assert\Positive(message="la valeur ne peut pas être negatif")
      * @ORM\Column(type="integer")
+     *
      */
     private $anneeRef;
+
+
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"infos_details"})
+     * @Assert\NotBlank(message="veuillez saisir le decret ")
+     * @Assert\Length(min=3, minMessage="le nombre de caractères doit être plus grand que 3",
+     *     max=100, maxMessage="le nombre de caractères doit être plus petit que 100")
      */
     private $decretLivre;
 
     /**
      * @ORM\Column(type="date_immutable")
+     *
      * @Groups({"infos_details"})
      */
     private $adoptionDate;
 
     /**
      * @ORM\Column(type="date_immutable")
+     *
+     * @Assert\GreaterThan(propertyPath="adoptionDate",message="erreur de date")
      * @Groups({"infos_details"})
      */
     private $executionDate;

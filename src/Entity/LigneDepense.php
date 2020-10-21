@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -48,6 +49,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
  *
  * )
  * @UniqueEntity(fields={"numeroLigne","livreCompte"},message="le numero de compte existe")
+ * @UniqueEntity(fields={"livreCompte","libelleLigne"},message="le libellé existe dans un compte")
  * @ApiFilter(SearchFilter::class, properties={"hierachieLigne","numeroLigne"})
  *@ApiFilter(NumericFilter::class, properties={"numeroLigne"})
  * @ORM\Entity(repositoryClass=LigneDepenseRepository::class)
@@ -65,20 +67,30 @@ class LigneDepense
     private $id;
 
     /**
+     *
      * @ORM\Column(type="integer")
      * @Groups({"comptelier","lier_livre","ligne_fils"})
+     * @Assert\NotBlank(message="ce champs doit être fournit")
+     * @Assert\Positive(message="le numero ne peut pas être negatif")
+     * @Assert\Length(max="4",maxMessage="le numero ne peut exceder 4 chiffres ")
+     * @Assert\Type(type="integer", message="la valeur doit etre un entier")
      */
     private $numeroLigne;
 
     /**
      * @ORM\Column(type="string", length=255)
      *  @Groups({"lier_livre","ligne_fils"})
+     * @Assert\NotBlank(message="ce champs doit être fournit")
+     * @Assert\Length(min="5", minMessage="le champs doit depasser 5 caractère ",
+     *      max="255",maxMessage="le champs ne peut exceder 255 caractères ")
      */
     private $libelleLigne;
 
     /**
      * @ORM\Column(type="string", length=100)
-     *
+     *@Assert\NotBlank(message="ce champs doit être fournit")
+     * @Assert\Length(min="5", minMessage="le champs doit depasser 5 caractère ",
+     *      max="100",maxMessage="le champs ne peut exceder 100 caractères ")
      */
     private $denominationLigne;
 
