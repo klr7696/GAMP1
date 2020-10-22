@@ -29,8 +29,6 @@ class LigneEnregistrement implements EventSubscriberInterface
         $result = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
         if ($result instanceof LigneDepense && $method === 'POST' || $result instanceof LigneDepense && $method === 'PUT') {
-$salut = new LivreCompte();
-
 
             $result->setIsMouvementer(false)
                 ->setIsNonSupprimable(false);
@@ -41,6 +39,8 @@ $salut = new LivreCompte();
                 $date = new \DateTime('now', new \DateTimeZone('UTC'));
                 $result->setModifAt($date);
             }
+
+
 
 
         }

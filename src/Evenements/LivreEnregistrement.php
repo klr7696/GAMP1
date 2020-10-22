@@ -20,16 +20,18 @@ class LivreEnregistrement implements EventSubscriberInterface
        ];
         // TODO: Implement getSubscribedEvents() method.
     }
+
     public function setLivre(ViewEvent $vue){
         $recup=$vue->getControllerResult();
         $method =$vue->getRequest()->getMethod();
 
+
+
         if($recup instanceof LivreCompte && $method==='POST'|| $recup instanceof LivreCompte && $method==='PUT')
         {
 
-
-            $recup->setIsActiver(false);
-            $recup->setIsNonSupprimable(false);
+            $recup->setIsActiver(false)
+                  ->setIsNonSupprimable(false);
             if($method==='POST'){
                 $date1 = new \DateTimeImmutable('now',new \DateTimeZone('UTC'));
                $recup->setCreationAt($date1);

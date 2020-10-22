@@ -342,5 +342,16 @@ class LigneDepense
         return $this;
     }
 
+    /**
+     * @return int|null
+     *  @Groups({"lier_livre","ligne_fils"})
+     */
+
+    public function getArticleNombre():?int
+    {
+        return array_reduce($this->getCompteFils()->toArray(), function ($nombre, $allo)
+        {return $nombre +1;
+        },0);
+    }
 
 }

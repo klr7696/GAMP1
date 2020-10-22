@@ -53,6 +53,7 @@ class LivreCompte
     private $id;
 
     /**
+     * @var integer
      *@Assert\Type("integer",message="hello")
      *@Assert\Length(min= 4, max= 4, exactMessage="l'annee n'est pas bien ecrite")
      * @Assert\NotBlank(message="l'année de reference doit être fournit")
@@ -75,13 +76,14 @@ class LivreCompte
     /**
      * @ORM\Column(type="date_immutable")
      *
+     * @var string A "d-m-Y" formatted value
      * @Groups({"infos_details"})
      */
     private $adoptionDate;
 
     /**
      * @ORM\Column(type="date_immutable")
-     *
+     *@var string A "d-m-Y" formatted value
      * @Assert\GreaterThan(propertyPath="adoptionDate",message="erreur de date")
      * @Groups({"infos_details"})
      */
@@ -274,4 +276,31 @@ class LivreCompte
 
         return $this;
     }
+
+    /**
+     * @Groups({"infos_details"})
+     * @return int
+     */
+    public function getNombreCompte(): int
+    {
+        return array_reduce($this->getLigneDepenses()->toArray(),function ($nombre)
+        {
+
+            return $nombre+1;
+        }, 0);
+    }
+
+    /**
+     * @return int
+     * @Groups({"infos_details"})
+     */
+    public function getCompteChapitre(): int
+    {
+        return array_reduce($this->getLigneDepenses()->toArray(),function ($nombre, $allo)
+        {
+
+            return $nombre + ($allo->getHierachieLigne()==="CHAPITRE"? 1:0);
+        }, 0);
+    }
+
 }
