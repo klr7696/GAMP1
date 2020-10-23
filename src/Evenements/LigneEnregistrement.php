@@ -31,13 +31,14 @@ class LigneEnregistrement implements EventSubscriberInterface
         if ($result instanceof LigneDepense && $method === 'POST' || $result instanceof LigneDepense && $method === 'PUT') {
 
             $result->setIsMouvementer(false)
-                ->setIsNonSupprimable(false);
+                   ->setIsNonSupprimable(false);
             if ($method === 'POST') {
                 $date1 = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
                 $result->setCreationAt($date1);
             } elseif ($method === 'PUT') {
                 $date = new \DateTime('now', new \DateTimeZone('UTC'));
                 $result->setModifAt($date);
+
             }
 
 

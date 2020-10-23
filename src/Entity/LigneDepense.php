@@ -50,7 +50,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @UniqueEntity(fields={"numeroLigne","livreCompte"},message="le numero de compte existe")
  * @UniqueEntity(fields={"livreCompte","libelleLigne"},message="le libellé existe dans un compte")
- * @ApiFilter(SearchFilter::class, properties={"hierachieLigne","numeroLigne"})
+ * @ApiFilter(SearchFilter::class, properties={"hierachieLigne","numeroLigne", "categorieLigne.nomCat"})
  *@ApiFilter(NumericFilter::class, properties={"numeroLigne"})
  * @ORM\Entity(repositoryClass=LigneDepenseRepository::class)
  *
