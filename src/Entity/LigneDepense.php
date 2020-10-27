@@ -47,6 +47,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  *     }
  *
+ *
  * )
  * @UniqueEntity(fields={"numeroLigne","livreCompte"},message="le numero de compte existe")
  * @UniqueEntity(fields={"livreCompte","libelleLigne"},message="le libellé existe dans un compte")
@@ -67,13 +68,13 @@ class LigneDepense
     private $id;
 
     /**
-     *
+     * @Assert\Type(type="integer", message="salut")
      * @ORM\Column(type="integer")
      * @Groups({"comptelier","lier_livre","ligne_fils"})
      * @Assert\NotBlank(message="ce champs doit être fournit")
      * @Assert\Positive(message="le numero ne peut pas être negatif")
      * @Assert\Length(max="4",maxMessage="le numero ne peut exceder 4 chiffres ")
-     * @Assert\Type(type="integer", message="la valeur doit etre un entier")
+     *
      */
     private $numeroLigne;
 
@@ -102,6 +103,7 @@ class LigneDepense
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"comptelier","lier_livre","ligne_fils"})
+     * @Assert\Choice(choices={"CHAPITRE","ARTICLE","PARAGRAPHE"}, message="erreur de donnée fournit")
      *
      */
     private $hierachieLigne;

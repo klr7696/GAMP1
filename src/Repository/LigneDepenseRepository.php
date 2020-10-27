@@ -18,6 +18,15 @@ class LigneDepenseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, LigneDepense::class);
     }
+   /* public function categoriParent(LigneDepense $depense){
+        return $this->createQueryBuilder("c")
+                    ->select("c.categorieLigne")
+                    ->from("App:LigneDepense", "p")
+                    ->where("p.compteParent= :depense")
+                    ->setParameter("depense", $depense)
+                    ->getQuery()
+                    ->getResult();
+    }*/
 
     // /**
     //  * @return LigneDepense[] Returns an array of LigneDepense objects
