@@ -9,15 +9,21 @@ import Content from './Budget/components/Content';
 class App extends Component {
     render() {
         return (
-            <BrowserRouter>
-            <div className="d-flex" id="wrapper">
-                <Sidebar/>
-                <div id="page-content-wrapper">
-                    <Header/>
-                    <Content/>
+        <BrowserRouter>
+           
+            <div id="pcoded" className="pcoded">
+                <div className="pcoded-overlay-box"></div>
+                    <div className="pcoded-container navbar-wrapper">
+                        <Header/>
+                    <div className="pcoded-main-container">
+                        <div className="pcoded-wrapper">
+                            <Sidebar/>  
+                            <Content/>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </BrowserRouter>
+        </BrowserRouter>
     )
     }
 }

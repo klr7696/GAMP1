@@ -1,15 +1,32 @@
-import React, { Component } from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from '../pages/Home';
+import { LivreAdd, LivreList } from '../pages/Livre';
 
-export default class Content extends Component {
-    render() {
-        return (
-            
-            <div className="container-fluid">
-            <h1 className="mt-4">Simple Sidebar</h1>
-            <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
-          </div>
-          
-        )
+
+
+class Content extends React.Component{
+        render () {
+
+            return(
+      
+              <div className="pcoded-content">
+                <div className="pcoded-inner-content">
+                      <div className="main-body">
+                            <div className="page-wrapper">
+                                  <div id="styleSelector">
+                                  </div>
+                  <Router>
+                   <Switch>
+                   <Route exact path='/' component={Home} />
+                     <Route path='/livre' component={LivreAdd} />
+                     <Route path='/livre/liste' component={LivreList} />
+                   </Switch>
+               </Router>
+     
+</div></div></div></div>
+
+            )
+        }
     }
-}
+export default Content;
