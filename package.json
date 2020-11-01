@@ -17,6 +17,8 @@
     "dependencies": {
         "@babel/plugin-proposal-class-properties": "^7.12.1",
         "@babel/plugin-transform-runtime": "^7.12.1",
+        "@syncfusion/ej2-base": "^18.3.44",
+        "@syncfusion/ej2-react-treegrid": "^18.3.44",
         "axios": "^0.21.0",
         "bootstrap": "^4.5.3",
         "jquery": "^3.5.1",
