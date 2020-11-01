@@ -10,11 +10,11 @@ import Load from "./Budget/components/Load";
 class App extends Component {
     render() {
         return (
-        <BrowserRouter>
-           <Load/>
+        <>
+           
             <div id="pcoded" className="pcoded">
-                <div className="pcoded-overlay-box"></div>
-                    <div className="pcoded-container navbar-wrapper">
+        <div className="pcoded-container navbar-wrapper">
+                        <Load/>
                         <Header/>
                     <div className="pcoded-main-container">
                         <div className="pcoded-wrapper">
@@ -24,7 +24,7 @@ class App extends Component {
                     </div>
                 </div>
             </div>
-        </BrowserRouter>
+        </>
     )
     }
 }

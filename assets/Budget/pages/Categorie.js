@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Field from './forms/Field';
+import axios from 'axios';
 
 export const CategorieAdd = () => {
+
     return ( 
         <div className="page-body">
         <div className="row">
@@ -55,6 +57,15 @@ export const CategorieAdd = () => {
 };
 
 export const CategorieList = () => {
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/categories")
+    .then(response => response.data["hydra:member"])
+    .then(data => setCategories(data));
+  }, [])
+
     return ( 
        <div>
   <div className="card">
@@ -68,70 +79,16 @@ export const CategorieList = () => {
             <tr>
               <th>Nomination</th>
               <th>Abreviation</th>
-              <th>Remarque</th>
             </tr>
-          </thead>
+          </thead >
           <tbody>
-            <tr>
-              <td>Depense de Fonctionnement</td>
-              <td>DF</td>
-              <td>Learn more about each</td>
-            </tr>
-            <tr>
-            <td>Depense de </td>
-            <td>D</td>
-            <td>Learn more about each</td>
+          {categories.map(categories =>  (
+            <tr key ={categories.id}>
+            <td>{categories.nomCat}</td>
+            <td>{categories.abreviationCat}</td>
           </tr>
-          <tr>
-          <td>Depense d Investissement</td>
-          <td>DI</td>
-          <td>Learn more about each</td>
-        </tr>
-        <tr>
-              <td>Depense de Fonctionnement</td>
-              <td>DF</td>
-              <td>Learn more about each</td>
-            </tr>
-            <tr>
-            <td>Depense de </td>
-            <td>D</td>
-            <td>Learn more about each</td>
-          </tr>
-          <tr>
-          <td>Depense d Investissement</td>
-          <td>DI</td>
-          <td>Learn more about each</td>
-        </tr>
-        <tr>
-              <td>Depense de Fonctionnement</td>
-              <td>DF</td>
-              <td>Learn more about each</td>
-            </tr>
-            <tr>
-            <td>Depense de </td>
-            <td>D</td>
-            <td>Learn more about each</td>
-          </tr>
-          <tr>
-          <td>Depense d Investissement</td>
-          <td>DI</td>
-          <td>Learn more about each</td>
-        </tr>
-        <tr>
-              <td>Depense de Fonctionnement</td>
-              <td>DF</td>
-              <td>Learn more about each</td>
-            </tr>
-            <tr>
-            <td>Depense de </td>
-            <td>D</td>
-            <td>Learn more about each</td>
-          </tr>
-          <tr>
-          <td>Depense d Investissement</td>
-          <td>DI</td>
-          <td>Learn more about each</td>
-        </tr>
+          )
+            )}
           </tbody>
         </table>
       </div>

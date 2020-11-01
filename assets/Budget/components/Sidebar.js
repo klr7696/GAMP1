@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Sidebar extends Component {
     render() {
         return (
-      <div>
+      <div className="pcoded-wrapper">
             <nav className="pcoded-navbar">
               <div className="pcoded-inner-navbar main-menu">
               <div className="pcoded-navigatio-lavel"><h2>DA<span>FB</span></h2></div>
