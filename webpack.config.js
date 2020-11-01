@@ -24,8 +24,9 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-    //.addEntry('page1', './assets/page1.js')
-    //.addEntry('page2', './assets/page2.js')
+    .addEntry('sidebar', './assets/Budget/components/Sidebar.js')
+    .addEntry('header', './assets/Budget/components/Header.js')
+    .addEntry('content', './assets/Budget/components/Content.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -64,7 +65,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     .enableReactPreset()

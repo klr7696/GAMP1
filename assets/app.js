@@ -1,14 +1,31 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
+import React , { Component } from 'react';
+import ReactDom from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Sidebar from "./Budget/components/Sidebar";
+import Header from "./Budget/components/Header";
+import Content from './Budget/components/Content';
 
-// any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
+class App extends Component {
+    render() {
+        return (
+        <BrowserRouter>
+           
+            <div id="pcoded" className="pcoded">
+                <div className="pcoded-overlay-box"></div>
+                    <div className="pcoded-container navbar-wrapper">
+                        <Header/>
+                    <div className="pcoded-main-container">
+                        <div className="pcoded-wrapper">
+                            <Sidebar/>  
+                            <Content/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </BrowserRouter>
+    )
+    }
+}
 
-console.log('Hello Webpack Encore! Edit me in assets/app.js');
+ReactDom.render(<App />, document.getElementById('root'));
