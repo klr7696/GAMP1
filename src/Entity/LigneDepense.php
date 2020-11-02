@@ -16,13 +16,14 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
 
 /**
  * @ApiResource(
  *collectionOperations={
  *     "get"={
- *     "normalization_Context"={"groups"={"comptelier"}},
+ *     "normalization_context"={"groups"={"comptelier"}},
  *     "path"="/lignes"
  *     }
  * ,"post"={"path"="/lignes"}
@@ -30,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     itemOperations={
  *     "get"={
 
- *     "normalisation_context"={"groups"={"infos_ligne"}},
+ *     "normalization_context"={"groups"={"infos_ligne"}},
  *     "path"="/lignes/{id}"
  *     }
  *      ,"delete"={"path"="/lignes/{id}"}
@@ -53,6 +54,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"livreCompte","libelleLigne"},message="le libellé existe dans un compte")
  * @ApiFilter(SearchFilter::class, properties={"hierachieLigne","numeroLigne", "categorieLigne.nomCat"})
  *@ApiFilter(NumericFilter::class, properties={"numeroLigne"})
+ * @ApiFilter(OrderFilter::class, properties={"numeroLigne"})
  * @ORM\Entity(repositoryClass=LigneDepenseRepository::class)
  *
  */
@@ -63,14 +65,14 @@ class LigneDepense
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @Groups({"comptelier","lier_livre","ligne_fils"})
+     * @Groups({"infos_ligne","lier_livre","ligne_fils"})
      */
     private $id;
 
     /**
      * @Assert\Type(type="integer", message="salut")
      * @ORM\Column(type="integer")
-     * @Groups({"comptelier","lier_livre","ligne_fils"})
+     * @Groups({"infos_ligne","lier_livre","ligne_fils"})
      * @Assert\NotBlank(message="ce champs doit être fournit")
      * @Assert\Positive(message="le numero ne peut pas être negatif")
      * @Assert\Length(max="4",maxMessage="le numero ne peut exceder 4 chiffres ")
@@ -80,7 +82,7 @@ class LigneDepense
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"lier_livre","ligne_fils"})
+     *  @Groups({"infos_ligne","lier_livre","ligne_fils"})
      * @Assert\NotBlank(message="ce champs doit être fournit")
      * @Assert\Length(min="5", minMessage="le champs doit depasser 5 caractère ",
      *      max="255",maxMessage="le champs ne peut exceder 255 caractères ")
@@ -92,17 +94,19 @@ class LigneDepense
      *@Assert\NotBlank(message="ce champs doit être fournit")
      * @Assert\Length(min="5", minMessage="le champs doit depasser 5 caractère ",
      *      max="100",maxMessage="le champs ne peut exceder 100 caractères ")
+     * @Groups({"infos_ligne"})
      */
     private $denominationLigne;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"infos_ligne"})
      */
     private $descriptionLigne;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"comptelier","lier_livre","ligne_fils"})
+     * @Groups({"infos_ligne","lier_livre","ligne_fils"})
      * @Assert\Choice(choices={"CHAPITRE","ARTICLE","PARAGRAPHE"}, message="erreur de donnée fournit")
      *
      */
@@ -110,16 +114,19 @@ class LigneDepense
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"infos_ligne"})
      */
     private $creationAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"infos_ligne"})
      */
     private $modifAt;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      */
     private $isMouvementer;
 
@@ -131,13 +138,14 @@ class LigneDepense
     /**
      * @ORM\ManyToOne(targetEntity=LivreCompte::class, inversedBy="ligneDepenses")
      * @ORM\JoinColumn(nullable=false)
-     *
+     * @Groups({"infos_ligne"})
      */
     private $livreCompte;
 
     /**
      * @ORM\ManyToOne(targetEntity=CategorieLigne::class, inversedBy="ligneDepenses")
-     *  @Groups({"comptelier","lier_livre","ligne_fils"})
+     *  @Groups({"infos_ligne","lier_livre","ligne_fils"})
+     *
      */
     private $categorieLigne;
 
@@ -151,9 +159,6 @@ class LigneDepense
     /**
      * @ORM\OneToMany(targetEntity=LigneDepense::class, mappedBy="compteParent")
      *@ApiSubresource()
-     *
-     *
-     *
      */
     private $compteFils;
 
@@ -351,7 +356,7 @@ class LigneDepense
 
     public function getArticleNombre():?int
     {
-        return array_reduce($this->getCompteFils()->toArray(), function ($nombre, $allo)
+        return array_reduce($this->getCompteFils()->toArray(), function ($nombre)
         {return $nombre +1;
         },0);
     }
