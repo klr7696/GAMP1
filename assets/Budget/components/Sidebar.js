@@ -15,13 +15,13 @@ class Sidebar extends Component {
                   </a>
                   <ul className="pcoded-submenu">
                     <li className>
-                      <a href="/livre">
+                      <a href="#/livre">
                       <i className="feather icon-edit"></i>
                         <span className="pcoded-mtext"> Créer</span>
                       </a>
                     </li>
                     <li className>
-                      <a href="/livre/liste">
+                      <a href="#/livre/liste">
                       <i className="feather icon-list"></i>
                         <span className="pcoded-mtext">Consulter</span>
                       </a>
@@ -35,13 +35,13 @@ class Sidebar extends Component {
                   </a>
                   <ul className="pcoded-submenu">
                   <li className>
-                    <a href="/categorie">
+                    <a href="#/categorie">
                     <i className="feather icon-edit"></i>
                       <span className="pcoded-mtext"> Créer</span>
                     </a>
                   </li>
                   <li className>
-                    <a href="/categories/liste">
+                    <a href="#/categories/liste">
                     <i className="feather icon-list"></i>
                       <span className="pcoded-mtext">Consulter</span>
                     </a>
@@ -55,13 +55,13 @@ class Sidebar extends Component {
             </a>
             <ul className="pcoded-submenu">
             <li className>
-              <a href="/compte">
+              <a href="#/compte">
               <i className="feather icon-edit"></i>
                 <span className="pcoded-mtext"> Créer</span>
               </a>
             </li>
             <li className>
-              <a href="/comptes/liste">
+              <a href="#/comptes/liste">
               <i className="feather icon-list"></i>
                 <span className="pcoded-mtext">Consulter</span>
               </a>
