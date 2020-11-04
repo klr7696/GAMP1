@@ -1,50 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import './index.css';
+import * as React from 'react';
+import { TreeGridComponent, ColumnsDirective, ColumnDirective, Page, Filter, Inject} from '@syncfusion/ej2-react-treegrid';
+import { sampleData } from './data';
+import { SampleBase } from './sample-base';
 
-const CompteList = () => {
-
-  const [lignes, setLignes] = useState([]);
-
-  useEffect(() => {
-    axios
-    .get("http://localhost:8000/api/livres/5/lignes?hierachieLigne=CHAPITRE")
-    .then(response => response.data["hydra:member"])
-    .then(data => setLignes(data));
-  }, []);
-
-  return ( 
-    <div className="card">
-    <div className="card-header">
-      <h2>Liste des lignes budgétaires</h2>
-    </div>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              
-              <th>Numéro</th>
-              <th>Libéllé</th>
-              <th>Hierarchie</th>
-              <th>Catégorie</th>
-              <th>Nombre d'Article</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-          {lignes.map(ligne => 
-            <tr key={ligne.id}>
-              <td>{ligne.numeroLigne} </td>
-              <td>{ligne.libelleLigne} </td>
-              <td>{ligne.hierachieLigne} </td>
-              <td>{ligne.categorieLigne.nomCat} </td>
-              <td className="text-center">
-              <span className="badge badge-primary">{ligne.articleNombre}</span>
-              </td>   
-            </tr>  
-            )}
-          </tbody>
-        </table>
-    </div>
-   );
+export class Filtering extends SampleBase {
+    onChange(sel) {
+        let mode = sel.value.toString();
+        this.treegridInstance.filterSettings.hierarchyMode = mode;
+        this.treegridInstance.clearFiltering();
+    }
+    render() {
+        return (
+          
+      <div className='control-pane'>
+        <div className='control-section'>
+          <div className='col-md-12'>
+           <TreeGridComponent dataSource={sampleData} ref={treegrid => this.treegridInstance = treegrid} 
+           treeColumnIndex={1} childMapping='subtasks' height='450' allowPaging='true' allowFiltering='true' 
+           filterSettings={{ mode: 'Immediate', type: 'FilterBar', hierarchyMode: 'Parent' }}>
+            <ColumnsDirective>
+              <ColumnDirective field='taskID' headerText='ID' width='40' ></ColumnDirective>
+              <ColumnDirective field='taskName' headerText='Numéro' width='90'></ColumnDirective>
+              <ColumnDirective field='startDate' headerText='Hiérarchie' width='90' format='yMd' />
+              <ColumnDirective field='duration' headerText='Libéllé' width='200' />
+              <ColumnDirective field='progress' headerText='Catégorie' width='100'/>
+            </ColumnsDirective>
+            <Inject services={[Filter, Page]}/>
+          </TreeGridComponent>
+        </div>
+       </div>
+        </div>
+        );
+    }
 }
- 
-export default CompteList;

@@ -69,3 +69,36 @@ export const LivreAdd = () => {
       </div>
     )
     };
+
+export const LivreList = () => {
+  return (
+<div className="form-group row">
+  
+  <div className="col-md-12 col-lg-4">
+    <div className="card">
+      <div className="card-block text-center">
+        <i className="feather icon-book text-c-lite-green d-block f-40" />
+        <h4 className="m-t-20"><span className="text-c-lite-green">2001</span></h4>
+        <p className="m-b-20">Decret n12xx/bf/2020</p>
+        <button className="m-r-15 btn btn-primary btn-sm btn-round"><i className="feather icon-delete"/></button>
+        <button className="m-r-15 btn btn-primary btn-sm btn-round"><i className="feather icon-list"/></button>
+        <button className="btn btn-primary btn-sm btn-round"><i className="feather icon-edit"/></button>
+      </div>
+    </div>
+  </div>   
+  <div className="col-md-12 col-lg-4">
+    <div className="card">
+      <div className="card-block text-center">
+        <i className="feather icon-book text-c-lite-green d-block f-40" />
+        <h4 className="m-t-20"><span className="text-c-lite-green">2001</span></h4>
+        <p className="m-b-20">Decret n12xx/bf/2020</p>
+        <button className="m-r-15 btn btn-primary btn-sm btn-round"><i className="feather icon-delete"/></button>
+        <button className="m-r-15 btn btn-primary btn-sm btn-round"><i className="feather icon-list"/></button>
+        <button className="btn btn-primary btn-sm btn-round"><i className="feather icon-edit"/></button>
+      </div>
+    </div>
+  </div>   
+
+</div>
+  );
+};

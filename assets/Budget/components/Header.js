@@ -11,7 +11,7 @@ class Header extends Component {
                   <i className="feather icon-menu" />
                 </a>
                 <a href="index-1.htm">
-                  <img className="img-fluid" src="assets/images/logo1.png" alt="Theme-Logo" width="70%" />
+                  <img className="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" width="70%" />
                 </a>
                 <a className="mobile-options">
                   <i className="feather icon-more-horizontal" />
@@ -25,12 +25,12 @@ class Header extends Component {
                   </a>
                 </li>
                 <li>
-                <a  href="#/livres/liste">
+                <a  href="/livre/liste">
                   COMPTE
                 </a>
               </li>
               <li>
-                <a  href="#/modal">
+                <a  href="/modal">
                   POGRAMMATION
                 </a>
               </li>
