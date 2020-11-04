@@ -11,7 +11,7 @@ class Header extends Component {
                   <i className="feather icon-menu" />
                 </a>
                 <a href="index-1.htm">
-                  <img className="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" width="70%" />
+                  <img className="img-fluid" src="assets/images/logo1.png" alt="Theme-Logo" width="70%" />
                 </a>
                 <a className="mobile-options">
                   <i className="feather icon-more-horizontal" />

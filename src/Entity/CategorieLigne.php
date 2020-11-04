@@ -90,7 +90,7 @@ class CategorieLigne
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"categorie_detail"})
+     *
      */
     private $isAffecter;
 

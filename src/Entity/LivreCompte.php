@@ -59,14 +59,14 @@ class LivreCompte
      * @Assert\NotBlank(message="l'année de reference doit être fournit")
      * @Assert\Positive(message="la valeur ne peut pas être negatif")
      * @ORM\Column(type="integer")
-     *
+     *@Groups({"infos","infos_details"})
      */
     private $anneeRef;
 
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"infos_details"})
+     * @Groups({"infos","infos_details"})
      * @Assert\NotBlank(message="veuillez saisir le decret ")
      * @Assert\Length(min=3, minMessage="le nombre de caractères doit être plus grand que 3",
      *     max=100, maxMessage="le nombre de caractères doit être plus petit que 100")
@@ -109,7 +109,7 @@ class LivreCompte
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"infos_details"})
+     *
      */
     private $isActiver;
 
@@ -121,7 +121,7 @@ class LivreCompte
     /**
      * @ORM\OneToMany(targetEntity=LigneDepense::class, mappedBy="livreCompte", orphanRemoval=true)
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"infos_details","lier_livre"})
+     * @Groups({"lier_livre"})
      */
     private $ligneDepenses;
 
@@ -278,7 +278,7 @@ class LivreCompte
     }
 
     /**
-     * @Groups({"infos_details"})
+     * @Groups({"infos","infos_details"})
      * @return int
      */
     public function getNombreCompte(): int
@@ -292,7 +292,7 @@ class LivreCompte
 
     /**
      * @return int
-     * @Groups({"infos_details"})
+     * @Groups({"infos","infos_details"})
      */
     public function getCompteChapitre(): int
     {

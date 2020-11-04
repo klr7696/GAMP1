@@ -280,7 +280,7 @@ export const Compte = () => {
   );
 };
 
-const CompteList = () => {
+export const CompteList = () => {
 
   const [lignes, setLignes] = useState([]);
 
@@ -325,6 +325,5 @@ const CompteList = () => {
         </table>
     </div>
    );
-}
- 
-export default CompteList;
+};
+

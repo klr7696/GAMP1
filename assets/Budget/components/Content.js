@@ -1,9 +1,9 @@
 import React from "react";
 import {HashRouter, Route, Switch } from "react-router-dom";
 import { CategorieAdd, CategorieList } from "../pages/Categorie";
-import CompteList, { Compte } from "../pages/Compte";
 import { Home } from "../pages/Home";
 import { LivreAdd, LivreList } from "../pages/Livre";
+import { Compte, CompteList } from "../pages/Compte";
 
 
 class Content extends React.Component {
@@ -13,7 +13,7 @@ class Content extends React.Component {
       <div className="pcoded-content">
         <div className="pcoded-inner-content">
           <div className="main-body">
-            <div className="page-wrapper">
+            
               <div id="styleSelector"></div>
               <main>
                 <Switch>
@@ -27,7 +27,6 @@ class Content extends React.Component {
                 </Switch>
               </main>
             </div>
-          </div>
         </div>
       </div>
       </HashRouter>
