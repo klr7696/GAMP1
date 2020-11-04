@@ -325,5 +325,4 @@ export const CompteList = () => {
         </table>
     </div>
    );
-};
-
+}
