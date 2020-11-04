@@ -1,37 +1,36 @@
 import React from "react";
 import {HashRouter, Route, Switch } from "react-router-dom";
-import { CategorieAdd, CategorieList } from "../pages/Categorie";
-import { Compte } from "../pages/Compte";
-import { Filtering } from "../pages/CompteList";
+import { CategorieAdd } from "../pages/CategorieAdd";
+import { CategorieList } from "../pages/CategorieList";
+import { CompteAdd } from "../pages/CompteAdd";
+import CompteList from "../pages/CompteList";
 import Home from "../pages/Home";
-import { LivreAdd, LivreList } from "../pages/Livre";
+import { LivreAdd } from "../pages/LivreAdd";
+import { LivreList } from "../pages/LivreList";
 import Modal from "../pages/Modal";
 
 class Content extends React.Component {
   render() {
     return (
       <HashRouter>
-      <div className="pcoded-content">
-        <div className="pcoded-inner-content">
-          <div className="main-body">
-            <div className="page-wrapper">
-              <div id="styleSelector"></div>
+
               <main>
                 <Switch>
+                  <div className="pcoded-content">
+                    <div className="pcoded-inner-content">
+                      <div id="styleSelector"></div>
                   <Route exact path="/" component={Home} />
                   <Route path="/livre" component={LivreAdd} />
-                  <Route path="/livre/liste" component={LivreList} />
-                  <Route path='/compte' component={Compte} />
-                  <Route path='/comptes/liste' component={Filtering} />
+                  <Route path="/livres/liste" component={LivreList} />
+                  <Route path='/compte' component={CompteAdd} />
+                  <Route path='/comptes/liste' component={CompteList} />
                   <Route path='/categorie' component={CategorieAdd} />
                   <Route path='/categories/liste' component={CategorieList} />
                   <Route path='/modal' component={Modal} />
+                    </div>
+                  </div>
                 </Switch>
               </main>
-            </div>
-          </div>
-        </div>
-      </div>
       </HashRouter>
     );
   }
