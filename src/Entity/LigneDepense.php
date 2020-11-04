@@ -159,6 +159,7 @@ class LigneDepense
     /**
      * @ORM\OneToMany(targetEntity=LigneDepense::class, mappedBy="compteParent")
      *@ApiSubresource()
+     * @Groups({"infos_ligne","lier_livre","ligne_fils"})
      */
     private $compteFils;
 
