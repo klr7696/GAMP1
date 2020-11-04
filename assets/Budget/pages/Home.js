@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
-class Home extends React.Component{
-    render () {
+export const Home = () => {
 
         return(
             <div className="jumbotron">
@@ -34,6 +33,4 @@ class Home extends React.Component{
             </p>
           </div>
         )
-        }
     }
-export default Home;

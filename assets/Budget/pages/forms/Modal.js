@@ -1,5 +1,5 @@
 import React from "react";
-import Field from "./forms/Field";
+import Field from "./Field";
 
 const Modal = () => {
   return (

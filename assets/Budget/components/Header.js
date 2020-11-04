@@ -25,7 +25,7 @@ class Header extends Component {
                   </a>
                 </li>
                 <li>
-                <a  href="/livre/liste">
+                <a  href="#/livres/liste">
                   COMPTE
                 </a>
               </li>
