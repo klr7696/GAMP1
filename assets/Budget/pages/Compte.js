@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { ColumnDirective, ColumnsDirective, Filter, Inject, Page, TreeGridComponent } from '@syncfusion/ej2-react-treegrid';
 import axios from 'axios';
 
 export const CompteAdd = () => {
@@ -280,49 +281,36 @@ export const Compte = () => {
   );
 };
 
-export const CompteList = () => {
+export const CompteList =() => {
 
-  const [lignes, setLignes] = useState([]);
+const [compte, setCompte] = useState([]);
 
-  useEffect(() => {
-    axios
-    .get("http://localhost:8000/api/livres/5/lignes?hierachieLigne=CHAPITRE")
-    .then(response => response.data["hydra:member"])
-    .then(data => setLignes(data));
-  }, []);
+useEffect(() => {
+  axios
+      .get("http://localhost:8000/api/livres/5/lignes?hierachieLigne=CHAPITRE")
+      .then((response) => response.data["hydra:member"])
+      .then((data) => setCompte(data))
+      .catch((error) => console.log(error.response));
+}, []);
 
-  return ( 
-    <div className="card">
-    <div className="card-header">
-      <h2>Liste des lignes budgétaires</h2>
+    return (
+      
+  <div className='control-pane'>
+    <div className='control-section'>
+      <div className='col-md-12'>
+       <TreeGridComponent dataSource={compte}
+        childMapping='compteFils' height='450' allowPaging='true' allowFiltering='true' 
+       filterSettings={{ mode: 'Immediate', type: 'FilterBar', hierarchyMode: 'Parent' }}>
+        <ColumnsDirective>
+          <ColumnDirective field='numeroLigne' headerText='Numéro' width='90'></ColumnDirective>
+          <ColumnDirective field='hierachieLigne' headerText='Hiérarchie' width='90' />
+          <ColumnDirective field='libelleLigne' headerText='Libéllé' width='200' />
+          <ColumnDirective field='categorieLigne.nomCat' headerText='Catégorie' width='100'/>
+        </ColumnsDirective>
+        <Inject services={[Filter, Page]}/>
+      </TreeGridComponent>
     </div>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              
-              <th>Numéro</th>
-              <th>Libéllé</th>
-              <th>Hierarchie</th>
-              <th>Catégorie</th>
-              <th>Nombre d'Article</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-          {lignes.map(ligne => 
-            <tr key={ligne.id}>
-
-              <td>{ligne.numeroLigne} </td>
-              <td>{ligne.libelleLigne} </td>
-              <td>{ligne.hierachieLigne} </td>
-              <td>{ligne.categorieLigne.nomCat} </td>
-              <td className="text-center">
-              <span className="badge badge-primary">{ligne.articleNombre}</span>
-              </td>   
-            </tr>  
-            )}
-          </tbody>
-        </table>
+   </div>
     </div>
-   );
+    );
 }

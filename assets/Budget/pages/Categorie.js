@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Field from './forms/Field';
+import { Field } from './forms/Field';
+
 
 export const CategorieAdd = props => {
 
