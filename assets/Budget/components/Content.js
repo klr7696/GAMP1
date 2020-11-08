@@ -5,7 +5,6 @@ import { LivreAdd, LivreList } from "../pages/Livre";
 import { Compte, CompteList } from "../pages/Compte";
 import { CategorieAdd, CategorieList } from "../pages/Categorie";
 import ErrorPage from "../pages/ErrorPage";
-import ChoixLivre from "../pages/forms/ChoixLivre";
 import Modal from "../pages/forms/Modal";
 
 

@@ -14,13 +14,13 @@ class Sidebar extends Component {
                     <span className="pcoded-mtext">Nomenclature</span>
                   </a>
                   <ul className="pcoded-submenu">
-                    <li >
+                    <li className="">
                       <a href="#/livre">
                       <i className="feather icon-edit"></i>
                         <span className="pcoded-mtext"> Créer</span>
                       </a>
                     </li>
-                    <li >
+                    <li className="">
                       <a href="#/livres/liste">
                       <i className="feather icon-list"></i>
                         <span className="pcoded-mtext">Consulter</span>
@@ -34,7 +34,7 @@ class Sidebar extends Component {
                     <span className="pcoded-mtext">Catégorie</span>
                   </a>
                   <ul className="pcoded-submenu">
-                  <li >
+                  <li className="">
                     <a href="#/categorie">
                     <i className="feather icon-edit"></i>
                       <span className="pcoded-mtext"> Créer</span>
@@ -54,7 +54,7 @@ class Sidebar extends Component {
               <span className="pcoded-mtext">Ligne</span>
             </a>
             <ul className="pcoded-submenu">
-            <li >
+            <li className="">
               <a href="#/compte">
               <i className="feather icon-edit"></i>
                 <span className="pcoded-mtext"> Créer</span>
