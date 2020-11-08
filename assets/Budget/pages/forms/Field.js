@@ -16,7 +16,7 @@ export const Field = ({
         <div className="col-sm-6">
             <input 
             value={value}
-            onchange={onChange}
+            onChange={onChange}
             type={type}
             placeholder={placeholder}
             name={name}
@@ -45,7 +45,7 @@ export const Field1 = ({
         <div className="col-sm-6">
             <textarea 
             value={value}
-            onchange={onChange}
+            onChange={onChange}
             type={type}
             placeholder={placeholder}
             name={name}

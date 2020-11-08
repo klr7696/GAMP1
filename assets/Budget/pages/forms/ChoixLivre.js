@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
+import Field from "./Field";
 
-class Modal extends Component {
-  render(){
+const ChoixLivre = () => {
   return (
     <div className="page-wrapper">
       <div className="page-body button-page">
         <div className="row">
-        <button
+          <button
             type="button"
             className="btn btn-primary waves-effect"
             data-toggle="modal"
@@ -24,7 +24,7 @@ class Modal extends Component {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title">
-                    Choix de nomenclature?
+                    Voulez-vous importer une nomenclature existante?
                   </h5>
                   <button
                     type="button"
@@ -37,8 +37,8 @@ class Modal extends Component {
                 </div>
                 <div className="modal-body">
                 <select className="custom-select">
-                <option selected="">Choix</option>
-                  <option value="1">2012</option>
+                <option selected="">importation</option>
+                <option value="1">2001</option>
                 <option value="2">2008</option>
                 <option value="2">2018</option>
               </select>
@@ -61,11 +61,12 @@ class Modal extends Component {
               </div>
             </div>
           </div>
+
+          <div id="styleSelector"></div>
         </div>
       </div>
     </div>
   );
-  }
 };
 
-export default Modal;
+export default ChoixLivre;

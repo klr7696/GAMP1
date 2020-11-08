@@ -14,13 +14,13 @@ class Sidebar extends Component {
                     <span className="pcoded-mtext">Nomenclature</span>
                   </a>
                   <ul className="pcoded-submenu">
-                    <li className>
+                    <li >
                       <a href="#/livre">
                       <i className="feather icon-edit"></i>
                         <span className="pcoded-mtext"> Créer</span>
                       </a>
                     </li>
-                    <li className>
+                    <li >
                       <a href="#/livres/liste">
                       <i className="feather icon-list"></i>
                         <span className="pcoded-mtext">Consulter</span>
@@ -34,13 +34,13 @@ class Sidebar extends Component {
                     <span className="pcoded-mtext">Catégorie</span>
                   </a>
                   <ul className="pcoded-submenu">
-                  <li className>
+                  <li >
                     <a href="#/categorie">
                     <i className="feather icon-edit"></i>
                       <span className="pcoded-mtext"> Créer</span>
                     </a>
                   </li>
-                  <li className>
+                  <li >
                     <a href="#/categories/liste">
                     <i className="feather icon-list"></i>
                       <span className="pcoded-mtext">Consulter</span>
@@ -49,18 +49,18 @@ class Sidebar extends Component {
             </ul>
             </li>
             <li className="pcoded-hasmenu">
-            <a href="javascript:void(0)">
+            <a type="button">
               <span className="pcoded-micon"><i className="feather icon-list" /></span>
               <span className="pcoded-mtext">Ligne</span>
             </a>
             <ul className="pcoded-submenu">
-            <li className>
+            <li >
               <a href="#/compte">
               <i className="feather icon-edit"></i>
                 <span className="pcoded-mtext"> Créer</span>
               </a>
             </li>
-            <li className>
+            <li>
               <a href="#/comptes/liste">
               <i className="feather icon-list"></i>
                 <span className="pcoded-mtext">Consulter</span>

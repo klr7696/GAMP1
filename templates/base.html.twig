@@ -8,7 +8,6 @@
     {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
     <link rel="stylesheet" href="{{ asset ("bower_components/bootstrap/css/bootstrap.min.css")}}">
-     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="{{ asset ("bower_components/bootstrap/css/bootstrap.min.css")}}">
     <!-- feather Awesome -->
@@ -31,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset ("assets/icon/feather/css/feather.css")}}">
     <link rel="stylesheet" type="text/css" href="{{ asset ("bower_components/chartist/css/chartist.css")}}">
      <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset ("error/img/favicon.ico")}}">
     {% endblock %}
 </head>
 <body>
@@ -59,7 +59,6 @@
     <script type="text/javascript" src="{{ asset ("assets/pages/dashboard/custom-dashboard.js")}}"></script>
     <script type="text/javascript" src="{{ asset ("assets/js/script.min.js")}}"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script type="text/javascript" src="{{ asset ("bower_components/jstree/js/jstree.min.js")}}"></script>
 <script type="text/javascript" src="{{ asset ("assets/pages/treeview/jquery.tree.js")}}"></script>
 <script src="{{ asset ("bower_components/datatables.net/js/jquery.dataTables.min.js")}}"></script>

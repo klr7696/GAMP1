@@ -6,81 +6,51 @@ import { Field, Field1 } from "./forms/Field";
 
 export const LivreAdd = () => {
 
-  const [livre, setLivre] = useState ([]);
-
-  const [errors, setErrors] = useState ({
-    anneeRef: "L'année est obligatoire",
-    decretLivre: "Le Décret est obligatoire",
-    adoptionDate: "",
-    executionDate: "",
-    descriptionLivre: ""
-  });
-
-  const handleChange = ({currentTarget}) => {
-    const {value, name} =currentTarget;
-    setLivre({ ...livres, [name]: value});
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    console.log(livre);
-  }
-
     return (
         <div className="card">
           <div className="col-sm-12 card-block">
-                <form onSubmit={handleSubmit}>
+                <form>
                   <Field
                     name="annee"
                     type="number"
                     label="Année"
-                    placeholder="2016"
-                    value={livre.anneeRef}
-                    onChange={handleChange}
-                    error={errors.anneeRef}
+                    placeholder="2016"  
                   />
                   <Field
                   name="decretLivre"
                   type="text"
                   label="Décret"
                   placeholder="Décret du livre"
-                  value={livre.decretLivre}
-                  onChange={handleChange}
-                  error={errors.decretLivre}
                   />
+                  <div>
                   <Field
                     name="dateAdoption"
                     type="date"
                     label="Date d'adoption"
-                    placeholder="Décret du livre"
-                    value={livre.adoptionDate}
-                    onChange={handleChange}
+                   
                   />
                   <Field
                     name="dateOeuvre"
                     type="date"
                     label="Date de mise en Oeuvre"
-                    value={livre.executionDate}
-                    onChange={handleChange}
+                   
                   />
+                  </div>
                   <Field1
                     name="descriptionLivre"
                     type="textarea"
                     label="Description"
                     placeholder="Description du livre"
-                    value={livre.descriptionLivre}
-                    onChange={handleChange}
+                   
                   />
                    
                   <Field
                   name="choixFichier"
                   type="file"
                   label="Fichier joint"
-                  value={livre.anneeRef}
-                  onChange={handleChange}
+                 
                   />
-                    <div className="mb-2">
+                    <div>
                     <button type="submit" className="btn btn-primary">Ajouter</button>  
                     </div>
                 </form>
@@ -101,6 +71,10 @@ export const LivreAdd = () => {
       }, []);
     
       return (
+        <div>
+        <div className="card-header">
+             <h4>Liste des Nommenclatures</h4>
+          </div>
         <div className="form-group row">
         {livres.map(livre => 
          
@@ -112,14 +86,14 @@ export const LivreAdd = () => {
                   <p className="m-b-20">{livre.decretLivre}</p>
                   <p className="m-b-20 m-r-50"> Compte : {livre.nombreCompte}</p>             
                   <button className="m-r-15 btn btn-primary btn-sm btn-round"><i className="feather icon-delete"/></button>
-                  <button className="m-r-15 btn btn-primary btn-sm btn-round"><i className="feather icon-list"/></button>
-                  <button className="btn btn-primary btn-sm btn-round"><i className="feather icon-edit"/></button>
+                  <a type="button" href="#/comptes/liste" className="m-r-15 btn btn-primary btn-sm btn-round"><i className="feather icon-list"/></a>
+                  <a type="button" href="#/compte" className="btn btn-primary btn-sm btn-round"><i className="feather icon-edit"/></a>
                 </div>
               </div>
             </div>  
           )}
           </div> 
-    
+          </div>
     
       );
     };

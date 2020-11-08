@@ -19,13 +19,15 @@
         "@babel/plugin-transform-runtime": "^7.12.1",
         "@syncfusion/ej2-base": "^18.3.44",
         "@syncfusion/ej2-react-treegrid": "^18.3.44",
-        "axios": "^0.21.0",
+        "axios": "^0.18.0",
         "bootstrap": "^4.5.3",
         "jquery": "^3.5.1",
+        "jwt-decode": "^2.2.0",
         "prop-types": "^15.7.2",
-        "react": "^16.14.0",
-        "react-dom": "^16.14.0",
-        "react-router-dom": "^5.2.0",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-router-dom": "^5.0.0",
+        "react-toastify": "^5.1.1",
         "reactstrap": "^8.6.0"
     }
 }

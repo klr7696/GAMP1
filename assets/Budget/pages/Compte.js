@@ -48,11 +48,11 @@ export const CompteAdd = () => {
                         name="gender"
                         id="gender-1"
                         defaultChecked="checked"
-                      />{" "}
+                      />
                       Chapitre
                     </label>
                     <select className="custom-select">
-                      <option selected="">Catégorie</option>
+                      <option>Catégorie</option>
                       <option value="1">DEP FONC</option>
                       <option value="2">DEP INV</option>
                     </select>
@@ -65,11 +65,11 @@ export const CompteAdd = () => {
                         name="gender"
                         id="gender-2"
                         defaultValue="option2"
-                      />{" "}
+                      />
                       Article
                     </label>
                     <select className="custom-select">
-                      <option selected="">Chapitre</option>
+                      <option >Chapitre</option>
                       <option value="1">60</option>
                       <option value="2">61</option>
                     </select>
@@ -82,11 +82,11 @@ export const CompteAdd = () => {
                         name="gender"
                         id="gender-2"
                         defaultValue="option2"
-                      />{" "}
+                      />
                       Paragraphe
                     </label>
                     <select className="custom-select">
-                      <option selected="">Article</option>
+                      <option >Article</option>
                       <option value="1">600</option>
                       <option value="2">610</option>
                     </select>
@@ -143,11 +143,9 @@ export const CompteAffich = () => {
       <div className="card card-block pre-scrollable1">
 
       <div className="dt-responsive">
-      
+      <h6>CHAPITRE</h6>
               <table id="row-select" className="table table-striped table-bordered nowrap">
-             
                   <thead>
-                  <h6>CHAPITRE</h6>
                   <tr>
                   <th>Num</th>
                   <th>Libéllé</th>
@@ -159,9 +157,9 @@ export const CompteAffich = () => {
                       <td>60</td>
                       <td>Achat de carburant</td>
                       <td>
-                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
-                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
-                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
+                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
+                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
+                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
                       </td>
 
                     </tr>
@@ -169,9 +167,9 @@ export const CompteAffich = () => {
                       <td>61</td>
                       <td>Achat de comsommable</td>
                       <td>
-                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
-                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
-                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
+                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
+                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
+                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
                       </td>
 
                     </tr>
@@ -184,9 +182,9 @@ export const CompteAffich = () => {
       <div className="col-lg-4">
       <div className="card card-block pre-scrollable1">
       <div className="dt-responsive">
+      <h6>ARTICLE</h6>
       <table id="simpletable" className="table table-striped table-bordered nowrap">
           <thead>
-          <h6>ARTICLE</h6>
           <tr>
           <th>Num</th>
           <th>Libéllé</th>
@@ -198,9 +196,9 @@ export const CompteAffich = () => {
               <td>60</td>
               <td>Achat de carburant</td>
               <td>
-                  <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
-                   <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
-                   <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
+                  <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
+                   <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
+                   <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
               </td>
 
             </tr>
@@ -214,9 +212,9 @@ export const CompteAffich = () => {
       <div className="col-lg-4">
       <div className="card card-block pre-scrollable1">
       <div className="dt-responsive">
+      <h6>PARAGRAPHE</h6>
               <table id="add-row-table" className="table table-striped table-bordered nowrap">
                   <thead>
-                  <h6>PARAGRAPHE</h6>
                   <tr>
                   <th>Num</th>
                   <th>Libéllé</th>
@@ -228,8 +226,8 @@ export const CompteAffich = () => {
                       <td>60</td>
                       <td>Achat de carburant ze</td>
                       <td>
-                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
-                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
+                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
+                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
                           </td>
 
                     </tr>
@@ -237,8 +235,8 @@ export const CompteAffich = () => {
                       <td>60</td>
                       <td>Achat de carburant hr</td>
                       <td>
-                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
-                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
+                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
+                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
                           </td>
 
                     </tr>
@@ -246,8 +244,8 @@ export const CompteAffich = () => {
                       <td>60</td>
                       <td>Achat de carburant</td>
                       <td>
-                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
-                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" title data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
+                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
+                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
                            </td>
 
                     </tr>

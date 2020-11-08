@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Field } from './forms/Field';
-
+import { ColumnDirective, ColumnsDirective, Filter, Inject, Page, TreeGridComponent } from '@syncfusion/ej2-react-treegrid';
 
 export const CategorieAdd = props => {
 
- const [categorie, setCategorie] = useState({
-   nomCat:"",
-   abreviationCat:""
- });
+ const [categorie, setCategorie] = useState(
+   { nomCat: "",
+      abreviationCat: ""
+  }
+  );
 
- const handleChange = ({currentTarget}) =>{
+const handleSubmit = (event) => {  event.preventDefault(); console.log(categorie);}
+
+
+ const handleChange = ({currentTarget}) => {
    const {name, value} = currentTarget;
-   setCategorie({ ...categorie, [name]: value});
+   setCategorie({ ...categorie, [name]: value });
  };
 
     return ( 
         <div className="page-body card">
               <div className="card-block">
-                <form >
+                <form>
                   <Field
                     name="nomCat"
                     label="Dénomination"
@@ -27,20 +31,17 @@ export const CategorieAdd = props => {
                     onChange={handleChange}
                   />
                   <Field
-                    name="abreviatonCat"
+                    name="abreviationCat"
                     label="Abreviation"
                     placeholder="ABR CAT"
                     value={categorie.abreviationCat}
                     onChange={handleChange}
                   />
   
-                  <div className="form-group row">
-                    <label className="col-sm-7 " />
-                    <div className="col-sm-4">
+                  <div className="">
                       <button type="submit" className="btn btn-primary m-b-0">
                         Ajouter
                       </button>
-                    </div>
                   </div>
                 </form>
               </div>
@@ -60,7 +61,32 @@ export const CategorieList = () => {
           .catch((error) => console.log(error.response));
   }, []);
 
-  const handleDelete = (id) => {
+    return (
+      
+  <div className='control-pane'>
+    <div className='control-section'>
+    <div className='col-md-12'>
+    <div className="card-header">
+      <h4>Liste des catégories de ligne</h4>
+    </div>
+       <TreeGridComponent dataSource={categories}
+        height='400' allowPaging='true' allowFiltering='true' 
+       filterSettings={{ mode: 'Immediate', type: 'FilterBar' }}>
+        <ColumnsDirective>
+          <ColumnDirective field='nomCat' headerText='Dénomination' width='50'></ColumnDirective>
+          <ColumnDirective field='abreviationCat' headerText='Abreviation' width='40'></ColumnDirective>
+          <ColumnDirective headerText='Action' width='30'></ColumnDirective>
+        </ColumnsDirective>
+        <Inject services={[Filter, Page]}/>
+      </TreeGridComponent>
+    </div>
+   </div>
+    </div>
+    );
+
+  
+
+ {/* const handleDelete = (id) => {
       const originalCategories = [...categories];
 
       setCategories(categories.filter((categorie) => categorie.id !== id));
@@ -72,45 +98,6 @@ export const CategorieList = () => {
               setCategories(originalCategories);
               console.log(error.response);
           });
-  };
+  };*/}
 
-  return (
-     <div>
-<div className="card">
-  <div className="card-header">
-    <h2>Liste des catégories de ligne</h2>
-  </div>
-  <div className="card-block pre-scrollable">
-    <div className="table-responsive">
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Dénomination</th>
-            <th>Abreviation</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        {categories.map((categorie) => (
-            <tr key={categorie.id}>
-                <td>{categorie.nomCat}</td>
-                <td>{categorie.abreviationCat}</td>
-                <td className="text-center">
-                    <button
-                        onClick={() => handleDelete(categorie.id)}
-                        className="btn btn-sm btn-danger"
-                    >
-                        Supprimer
-                    </button>
-                </td>
-            </tr>
-        ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-</div>
-
-   );
 };

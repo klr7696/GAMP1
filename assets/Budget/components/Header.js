@@ -7,10 +7,10 @@ class Header extends Component {
             <nav className="navbar header-navbar pcoded-header">
                 <div className="navbar-wrapper">
                 <div className="navbar-logo">
-                <a className="mobile-menu" id="mobile-collapse" href="#!">
+                <a className="mobile-menu" id="mobile-collapse">
                   <i className="feather icon-menu" />
                 </a>
-                <a href="index-1.htm">
+                <a href="#/home">
                   <img className="img-fluid" src="assets/images/logo1.png" alt="Theme-Logo" width="70%" />
                 </a>
                 <a className="mobile-options">
@@ -20,7 +20,7 @@ class Header extends Component {
               <div className="navbar-container container-fluid">
                 <ul className="nav-left">
                   <li>
-                  <a href="/">
+                  <a href="#/">
                     <i className="feather icon-home" />
                   </a>
                 </li>
@@ -30,12 +30,12 @@ class Header extends Component {
                 </a>
               </li>
               <li>
-                <a  href="/modal">
+                <a  href="#/">
                   POGRAMMATION
                 </a>
               </li>
               <li>
-                <a href="/Suiv">
+                <a href="#/Suiv">
                   SUIVI
                 </a>
               </li>
