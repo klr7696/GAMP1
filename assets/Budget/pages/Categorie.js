@@ -1,92 +1,132 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Field } from './forms/Field';
-import { ColumnDirective, ColumnsDirective, Filter, Inject, Page, TreeGridComponent } from '@syncfusion/ej2-react-treegrid';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-export const CategorieAdd = props => {
+export const CategorieAdd = (props) => {
+  const [categorie, setCategorie] = useState({
+    nomCat: "",
+    abreviationCat: "",
+  });
 
- const [categorie, setCategorie] = useState(
-   { nomCat: "",
-      abreviationCat: ""
-  }
-  );
+  const [errors, setErrors] = useState({ nomCat: "", abreviationCat: "" });
 
-const handleSubmit = (event) => {  event.preventDefault(); console.log(categorie);}
+  const handleChange = ({ currentTarget }) => {
+    const { name, value } = currentTarget;
+    setCategorie({ ...categorie, [name]: value });
+  };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
- const handleChange = ({currentTarget}) => {
-   const {name, value} = currentTarget;
-   setCategorie({ ...categorie, [name]: value });
- };
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/categories",
+        categorie
+      );
+      console.log(response.data);
+    } catch (error) {
+      if (error.response.data.violations) {
+        const apiErrors = {};
+        error.response.data.violations.forEach((violation) => {
+          apiErrors[violation.propertyPath] = violation.message;
+        });
+        setErrors(apiErrors);
+      }
+    }
+  };
 
-    return ( 
-        <div className="page-body card">
-              <div className="card-block">
-                <form>
-                  <Field
-                    name="nomCat"
-                    label="Dénomination"
-                    placeholder="Nom"
-                    value={categorie.nomCat}
-                    onChange={handleChange}
-                  />
-                  <Field
-                    name="abreviationCat"
-                    label="Abreviation"
-                    placeholder="ABR CAT"
-                    value={categorie.abreviationCat}
-                    onChange={handleChange}
-                  />
-  
-                  <div className="">
-                      <button type="submit" className="btn btn-primary m-b-0">
-                        Ajouter
-                      </button>
-                  </div>
-                </form>
-              </div>
+  return (
+    <div className="col-sm-12">
+      <div className="j-wrapper j-wrapper-640">
+        <form onSubmit={handleSubmit} className="j-pro" id="j-pro">
+          <div className="j-content">
+            <div className="j-unit">
+              <label className="j-label">DENOMINATION</label>
+              <input
+                type="text"
+                name="nomCat"
+                placeholder="nom de la catégorie"
+                value={categorie.nomCat}
+                onChange={handleChange}
+                error={errors.nomCat}
+              />
             </div>
-    );
+
+            <div className="j-unit">
+              <label className="j-label">ABREVIATION</label>
+              <input
+                name="abreviationCat"
+                type="text"
+                className="form-control form-control-uppercase"
+                placeholder="ABR CAT"
+                maxlength="10"
+                value={categorie.abreviationCat}
+                onChange={handleChange}
+                error={errors.abreviationCat}
+              />
+            </div>
+
+            <div className="j-response" />
+          </div>
+          {/* end /.content */}
+          <div className="j-footer">
+            <button type="submit" className="btn btn-primary">
+              Ajouter
+            </button>
+          </div>
+          {/* end /.footer */}
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export const CategorieList = () => {
-
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-      axios
-          .get("http://localhost:8000/api/categories")
-          .then((response) => response.data["hydra:member"])
-          .then((data) => setCategories(data))
-          .catch((error) => console.log(error.response));
+    axios
+      .get("http://localhost:8000/api/categories")
+      .then((response) => response.data["hydra:member"])
+      .then((data) => setCategories(data))
+      .catch((error) => console.log(error.response));
   }, []);
 
-    return (
-      
-  <div className='control-pane'>
-    <div className='control-section'>
-    <div className='col-md-12'>
-    <div className="card-header">
-      <h4>Liste des catégories de ligne</h4>
+  return (
+    <div className="control-pane">
+      <div className="control-section">
+        <div className="col-md-12">
+          <div className="card">
+            <div className="card-header">
+              <h2>Liste des catégories de ligne</h2>
+            </div>
+            <div className="card-block">
+              <div className="dt-responsive table-responsive">
+                <table className="table table-hovered">
+                  <thead>
+                    <tr>
+                      <th>Nomination</th>
+                      <th>Abreviation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {categories.map((categories) => (
+                      <tr key={categories.id}>
+                        <td>{categories.nomCat}</td>
+                        <td>{categories.abreviationCat}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-       <TreeGridComponent dataSource={categories}
-        height='400' allowPaging='true' allowFiltering='true' 
-       filterSettings={{ mode: 'Immediate', type: 'FilterBar' }}>
-        <ColumnsDirective>
-          <ColumnDirective field='nomCat' headerText='Dénomination' width='50'></ColumnDirective>
-          <ColumnDirective field='abreviationCat' headerText='Abreviation' width='40'></ColumnDirective>
-          <ColumnDirective headerText='Action' width='30'></ColumnDirective>
-        </ColumnsDirective>
-        <Inject services={[Filter, Page]}/>
-      </TreeGridComponent>
-    </div>
-   </div>
-    </div>
-    );
+  );
 
-  
-
- {/* const handleDelete = (id) => {
+  {
+    /* const handleDelete = (id) => {
       const originalCategories = [...categories];
 
       setCategories(categories.filter((categorie) => categorie.id !== id));
@@ -98,6 +138,6 @@ export const CategorieList = () => {
               setCategories(originalCategories);
               console.log(error.response);
           });
-  };*/}
-
+  };*/
+  }
 };

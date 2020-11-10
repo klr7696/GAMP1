@@ -1,15 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import { ColumnDirective, ColumnsDirective, Filter, Inject, Page, TreeGridComponent } from '@syncfusion/ej2-react-treegrid';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export const CompteAdd = () => {
   return (
-    <div className="page-body row ">
-        <div className="col-md-12">
-          {/* Range slider card start */}
-          <div className="card card-block pre-scrollable">
+          <div className="pre-scrollable">
+          
+            <form>
+              
+              <div className="content">
+                {/* start show/hide elements select */}
+                <div className="card-header">
+            </div>
+                <div className="col-sm-12">
+                
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">Numéro</label>
+                  <label className="col-sm-2 col-form-label">NUMERO</label>
                   <div className="col-sm-10">
                     <input
                       type="number"
@@ -19,7 +26,7 @@ export const CompteAdd = () => {
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">Libéllé</label>
+                  <label className="col-sm-2 col-form-label">LIBELLE</label>
                   <div className="col-sm-10">
                     <input
                       type="text"
@@ -29,7 +36,7 @@ export const CompteAdd = () => {
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">Remarque</label>
+                  <label className="col-sm-2 col-form-label"></label>
                   <div className="col-sm-10">
                     <textarea
                       type="text"
@@ -48,11 +55,11 @@ export const CompteAdd = () => {
                         name="gender"
                         id="gender-1"
                         defaultChecked="checked"
-                      />
+                      />{" "}
                       Chapitre
                     </label>
                     <select className="custom-select">
-                      <option>Catégorie</option>
+                      <option selected="">Catégorie</option>
                       <option value="1">DEP FONC</option>
                       <option value="2">DEP INV</option>
                     </select>
@@ -65,11 +72,11 @@ export const CompteAdd = () => {
                         name="gender"
                         id="gender-2"
                         defaultValue="option2"
-                      />
+                      />{" "}
                       Article
                     </label>
                     <select className="custom-select">
-                      <option >Chapitre</option>
+                      <option selected="">Chapitre</option>
                       <option value="1">60</option>
                       <option value="2">61</option>
                     </select>
@@ -82,33 +89,28 @@ export const CompteAdd = () => {
                         name="gender"
                         id="gender-2"
                         defaultValue="option2"
-                      />
+                      />{" "}
                       Paragraphe
                     </label>
                     <select className="custom-select">
-                      <option >Article</option>
+                      <option selected="">Article</option>
                       <option value="1">600</option>
                       <option value="2">610</option>
                     </select>
                   </div>
                   <span className="messages" />
-                  <div className="form-group row">
-                    <label className="col-sm-11 " />
-                    <div className="col-sm-1">
-                      <button
-                        type="submit"
-                        className="btn btn-primary m-b-0 "
-                      >
-                      Ajouter
-                      </button>
-                    </div>
-                  </div>
                 </div>
               
-            </div>
+                </div>
+                {/* end selects */}
+              </div>
+              {/* end /.content */}
+              <div className="card-footer text-right">
+                <button type="submit" className="btn btn-primary">Ajouter</button>
+              </div>
+              {/* end /.footer */}
+            </form>
           </div>
-        </div>
-   
   );
 };
 
@@ -285,7 +287,7 @@ const [compte, setCompte] = useState([]);
 
 useEffect(() => {
   axios
-      .get("http://localhost:8000/api/livres/5/lignes?hierachieLigne=CHAPITRE")
+      .get("http://localhost:8000/api/livres/1/lignes?hierachieLigne=CHAPITRE")
       .then((response) => response.data["hydra:member"])
       .then((data) => setCompte(data))
       .catch((error) => console.log(error.response));
@@ -295,9 +297,13 @@ useEffect(() => {
       
   <div className='control-pane'>
     <div className='control-section'>
-      <div className='col-md-12'>
+     <div className='col-md-12'>
+    <div className="mb-1 d-flex justify-content-between align-items-center">
+    <h4>Liste de lignes budgétaires</h4>
+    <Link to="/compte" className="btn btn-primary">Ajouter de Nouveau</Link>
+    </div>   
        <TreeGridComponent dataSource={compte}
-        childMapping='compteFils' height='450' allowPaging='true' allowFiltering='true' 
+        childMapping='compteFils' height='420' allowPaging='true' allowFiltering='true' 
        filterSettings={{ mode: 'Immediate', type: 'FilterBar', hierarchyMode: 'Parent' }}>
         <ColumnsDirective>
           <ColumnDirective field='numeroLigne' headerText='Numéro' width='90'></ColumnDirective>

@@ -5,7 +5,7 @@ import { LivreAdd, LivreList } from "../pages/Livre";
 import { Compte, CompteList } from "../pages/Compte";
 import { CategorieAdd, CategorieList } from "../pages/Categorie";
 import ErrorPage from "../pages/ErrorPage";
-import Modal from "../pages/forms/Modal";
+import { ChoixLivre } from "../pages/ChoixLivre";
 
 
 class Content extends React.Component {
@@ -22,10 +22,10 @@ class Content extends React.Component {
                 <Switch>
                   <Route path="/livre" component={LivreAdd} />
                   <Route path="/livres/liste" component={LivreList} />
-                  <Route path="/choix" component={Modal} />
+                  <Route path="/choix" component={ChoixLivre} />
                   <Route path='/compte' component={Compte} />
                   <Route path='/comptes/liste' component={CompteList} />
-                  <Route path='/categorie' component={CategorieAdd} />
+                  <Route path='/categorie/:id' component={CategorieAdd} />
                   <Route path='/categories/liste' component={CategorieList} />
                   <Route exact path="/" component={Home} />
                   <Route component={ErrorPage} />

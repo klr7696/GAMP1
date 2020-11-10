@@ -6,22 +6,20 @@ export const Field = ({
     value,
     onChange,
     placeholder,
-    type ="text",
-    error=""
+    type = "text",
+    error = ""
 }) => (
-        <div className="form-group row">
-        <div className="col-sm-2 col-form-label sub-title">
-            <label htmlFor={name}> {label} </label>
-        </div>
-        <div className="col-sm-6">
+    <div className="form-group row">
+            <label className="col-sm-2 col-form-label sub-title" htmlFor={name}> {label} </label>
+                <div className="col-sm-6">
             <input 
             value={value}
             onChange={onChange}
             type={type}
-            placeholder={placeholder}
+            placeholder={placeholder || label }
             name={name}
             id={name}
-            className={" form-control" + (error && "is-invalid")}
+            className={"form-control" + (error && "is-invalid")}
         />
         </div>
         {error && <p className="invalid-feedback">{error}</p> }
@@ -39,15 +37,13 @@ export const Field1 = ({
     error=""
 }) => (
         <div className="form-group row">
-        <div className="col-sm-2 col-form-label sub-title">
-            <label htmlFor={name}> {label} </label>
-        </div>
+            <label className="col-sm-2 col-form-label sub-title" htmlFor={name}> {label} </label>
         <div className="col-sm-6">
             <textarea 
             value={value}
             onChange={onChange}
             type={type}
-            placeholder={placeholder}
+            placeholder={placeholder || label }
             name={name}
             id={name}
             className={" form-control" + (error && "is-invalid")}

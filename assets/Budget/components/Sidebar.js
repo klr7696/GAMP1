@@ -9,7 +9,7 @@ class Sidebar extends Component {
               <div className="pcoded-navigatio-lavel"><h2>DA<span>FB</span></h2></div>
               <ul className="pcoded-item pcoded-left-item">
                 <li className="pcoded-hasmenu">
-                  <a href="javascript:void(0)">
+                  <a type="button" href="javascript:void(0)">
                     <span className="pcoded-micon"><i className="feather icon-book"></i></span>
                     <span className="pcoded-mtext">Nomenclature</span>
                   </a>
@@ -29,7 +29,7 @@ class Sidebar extends Component {
               </ul>
               </li>
               <li className="pcoded-hasmenu">
-                  <a href="javascript:void(0)">
+                  <a type="button" href="javascript:void(0)">
                     <span className="pcoded-micon"><i className="feather icon-plus-square" /></span>
                     <span className="pcoded-mtext">Catégorie</span>
                   </a>
@@ -48,26 +48,12 @@ class Sidebar extends Component {
                   </li>
             </ul>
             </li>
-            <li className="pcoded-hasmenu">
-            <a type="button">
+            <li>
+            <a type="button" href="#/choix">
               <span className="pcoded-micon"><i className="feather icon-list" /></span>
               <span className="pcoded-mtext">Ligne</span>
             </a>
-            <ul className="pcoded-submenu">
-            <li className="">
-              <a href="#/compte">
-              <i className="feather icon-edit"></i>
-                <span className="pcoded-mtext"> Créer</span>
-              </a>
             </li>
-            <li>
-              <a href="#/comptes/liste">
-              <i className="feather icon-list"></i>
-                <span className="pcoded-mtext">Consulter</span>
-              </a>
-            </li>
-      </ul>
-      </li>
             </ul>
             </div>
             </nav>
