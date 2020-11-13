@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { ColumnDirective, ColumnsDirective, Filter, Inject, Page, TreeGridComponent } from '@syncfusion/ej2-react-treegrid';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import LivreAPI from '../services/LivreAPI';
 
 export const CompteAdd = () => {
   return (
@@ -11,7 +12,7 @@ export const CompteAdd = () => {
               
               <div className="content">
                 {/* start show/hide elements select */}
-                <div className="card-header">
+                <div className="mb-2 card-header">
             </div>
                 <div className="col-sm-12">
                 
@@ -36,7 +37,7 @@ export const CompteAdd = () => {
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label"></label>
+                  <label className="col-sm-2 col-form-label">REMARQUE</label>
                   <div className="col-sm-10">
                     <textarea
                       type="text"
@@ -137,44 +138,42 @@ export const CompteNotifi = () => {
 };
 
 export const CompteAffich = () => {
+
+  const [chapitre, setChapitre] =useState([]);
+
+  useEffect(() => {
+    axios
+    .get("http://localhost:8000/api/lignes/32/fils")
+    .then(response => response.data["hydra:member"])
+    .then(data =>setChapitre(data));
+  }, [])
+
   return (
 
-    <div className="page-body row ">
+    <>
     <div className="col-lg-4">
-    
-      <div className="card card-block pre-scrollable1">
-
-      <div className="dt-responsive">
-      <h6>CHAPITRE</h6>
-              <table id="row-select" className="table table-striped table-bordered nowrap">
+      <div className="card pre-scrollable1">
+       <div className="card-block">
+              <table className="table table-hover table-bordered">
                   <thead>
                   <tr>
-                  <th>Num</th>
-                  <th>Libéllé</th>
-                  <th>Action</th>
+                    <th>Num</th>
+                    <th>Libéllé</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    {chapitre.map(chap =>  
+                    <tr key={chap.id}>
                       <td>60</td>
-                      <td>Achat de carburant</td>
+                      <td>Achat de carburant </td>
                       <td>
                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
-                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
-                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
+                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
+                          <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
                       </td>
-
-                    </tr>
-                    <tr>
-                      <td>61</td>
-                      <td>Achat de comsommable</td>
-                      <td>
-                          <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
-                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
-                           <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
-                      </td>
-
-                    </tr>
+                    </tr>)}
+                   
                   </tbody>
               </table>
           </div>
@@ -256,7 +255,7 @@ export const CompteAffich = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
 
 
   );
@@ -300,7 +299,7 @@ useEffect(() => {
      <div className='col-md-12'>
     <div className="mb-1 d-flex justify-content-between align-items-center">
     <h4>Liste de lignes budgétaires</h4>
-    <Link to="/compte" className="btn btn-primary">Ajouter de Nouveau</Link>
+    <Link to="/compte/new" className="btn btn-primary">Ajouter de Nouveau</Link>
     </div>   
        <TreeGridComponent dataSource={compte}
         childMapping='compteFils' height='420' allowPaging='true' allowFiltering='true' 

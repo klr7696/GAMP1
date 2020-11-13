@@ -20,10 +20,10 @@ class Content extends React.Component {
               <div id="styleSelector"></div>
             
                 <Switch>
-                  <Route path="/livre" component={LivreAdd} />
+                  <Route path="/livre/:id" component={LivreAdd} />
                   <Route path="/livres/liste" component={LivreList} />
                   <Route path="/choix" component={ChoixLivre} />
-                  <Route path='/compte' component={Compte} />
+                  <Route path='/compte/:id' component={Compte} />
                   <Route path='/comptes/liste' component={CompteList} />
                   <Route path='/categorie/:id' component={CategorieAdd} />
                   <Route path='/categories/liste' component={CategorieList} />

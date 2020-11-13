@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LivreCard from "./forms/LivreCard";
 
 export const LivreAdd = () => {
   return (
@@ -86,37 +87,9 @@ export const LivreList = () => {
       <div className="card-header">
         <h4>Liste des Nommenclatures</h4>
       </div>
-      <div className="form-group row">
+      <div className="row">
         {livres.map((livre) => (
-          <div key={livre.id} className="col-md-12 col-lg-4">
-            <div className="card card-block">
-              <div className="text-center">
-                <i className="feather icon-book text-c-lite-green d-block f-40" />
-                <h4 className="m-t-20">
-                  <span className="text-c-lite-green">{livre.anneeRef}</span>
-                </h4>
-                <p className="m-b-20">{livre.decretLivre}</p>
-                <p className="m-b-20 m-r-50"> Compte : {livre.nombreCompte}</p>
-                <button className="m-r-15 btn btn-primary btn-sm btn-round">
-                  <i className="feather icon-delete" />
-                </button>
-                <a
-                  type="button"
-                  href="#/comptes/liste"
-                  className="m-r-15 btn btn-primary btn-sm btn-round"
-                >
-                  <i className="feather icon-list" />
-                </a>
-                <a
-                  type="button"
-                  href="#/compte"
-                  className="btn btn-primary btn-sm btn-round"
-                >
-                  <i className="feather icon-edit" />
-                </a>
-              </div>
-            </div>
-          </div>
+          <LivreCard key={livre.id} livre={livre} />
         ))}
       </div>
     </div>

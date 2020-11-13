@@ -9,13 +9,13 @@ class Sidebar extends Component {
               <div className="pcoded-navigatio-lavel"><h2>DA<span>FB</span></h2></div>
               <ul className="pcoded-item pcoded-left-item">
                 <li className="pcoded-hasmenu">
-                  <a type="button" href="javascript:void(0)">
+                  <a type="button" href="#" onClick={e => e.preventDefault()}>
                     <span className="pcoded-micon"><i className="feather icon-book"></i></span>
                     <span className="pcoded-mtext">Nomenclature</span>
                   </a>
                   <ul className="pcoded-submenu">
                     <li className="">
-                      <a href="#/livre">
+                      <a href="#/livre/new">
                       <i className="feather icon-edit"></i>
                         <span className="pcoded-mtext"> Créer</span>
                       </a>
@@ -29,13 +29,13 @@ class Sidebar extends Component {
               </ul>
               </li>
               <li className="pcoded-hasmenu">
-                  <a type="button" href="javascript:void(0)">
+                  <a type="button" href="#" onClick={e => e.preventDefault()}>
                     <span className="pcoded-micon"><i className="feather icon-plus-square" /></span>
                     <span className="pcoded-mtext">Catégorie</span>
                   </a>
                   <ul className="pcoded-submenu">
                   <li className="">
-                    <a href="#/categorie">
+                    <a href="#/categorie/new">
                     <i className="feather icon-edit"></i>
                       <span className="pcoded-mtext"> Créer</span>
                     </a>
@@ -49,7 +49,7 @@ class Sidebar extends Component {
             </ul>
             </li>
             <li>
-            <a type="button" href="#/choix">
+            <a type="button" href="#" onClick={e => e.preventDefault()}>
               <span className="pcoded-micon"><i className="feather icon-list" /></span>
               <span className="pcoded-mtext">Ligne</span>
             </a>
