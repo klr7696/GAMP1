@@ -282,15 +282,29 @@ export const Compte = () => {
 
 export const CompteList =() => {
 
-const [compte, setCompte] = useState([]);
+  const {id = "new"} = props.match.params;
 
-useEffect(() => {
-  axios
-      .get("http://localhost:8000/api/livres/1/lignes?hierachieLigne=CHAPITRE")
-      .then((response) => response.data["hydra:member"])
-      .then((data) => setCompte(data))
-      .catch((error) => console.log(error.response));
-}, []);
+  const [compte, setCompte] = useState({});
+  
+  const fetchComptes = async id =>{
+    try{
+      const id=2;
+      const data = await axios
+      .get(`http://localhost:8000/api/livres/1/lignes?hierachieLigne=CHAPITRE` )
+      .then(response => response.data);
+      const {numeroLigne, hierachieLigne, libelleLigne, nomCat} = data
+  
+      setCompte({numeroLigne, hierachieLigne, libelleLigne, nomCat});
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+  
+  useEffect(() => {
+    if(id !== "new"){
+   fetchComptes(id);
+    }
+  }, [id])
 
     return (
       

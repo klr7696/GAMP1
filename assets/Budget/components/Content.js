@@ -1,7 +1,7 @@
 import React from "react";
 import {HashRouter, Route, Switch } from "react-router-dom";
 import { Home } from "../pages/Home";
-import { LivreAdd, LivreList } from "../pages/Livre";
+import { LivreAdd, LivreDetail, LivreList } from "../pages/Livre";
 import { Compte, CompteList } from "../pages/Compte";
 import { CategorieAdd, CategorieList } from "../pages/Categorie";
 import ErrorPage from "../pages/ErrorPage";
@@ -20,11 +20,12 @@ class Content extends React.Component {
               <div id="styleSelector"></div>
             
                 <Switch>
-                  <Route path="/livre/:id" component={LivreAdd} />
-                  <Route path="/livres/liste" component={LivreList} />
+                <Route path="/livre" component={LivreAdd} />
+                  <Route path="/livres/:id" component={LivreDetail} />
+                  <Route path="/livres" component={LivreList} />
                   <Route path="/choix" component={ChoixLivre} />
                   <Route path='/compte/:id' component={Compte} />
-                  <Route path='/comptes/liste' component={CompteList} />
+                  <Route path='/livress/:id/comptes' component={CompteList} />
                   <Route path='/categorie/:id' component={CategorieAdd} />
                   <Route path='/categories/liste' component={CategorieList} />
                   <Route exact path="/" component={Home} />

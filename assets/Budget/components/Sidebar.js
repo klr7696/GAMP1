@@ -21,7 +21,7 @@ class Sidebar extends Component {
                       </a>
                     </li>
                     <li className="">
-                      <a href="#/livres/liste">
+                      <a href="#/livres">
                       <i className="feather icon-list"></i>
                         <span className="pcoded-mtext">Consulter</span>
                       </a>
@@ -49,7 +49,7 @@ class Sidebar extends Component {
             </ul>
             </li>
             <li>
-            <a type="button" href="#" onClick={e => e.preventDefault()}>
+            <a type="button" href="#/choix">
               <span className="pcoded-micon"><i className="feather icon-list" /></span>
               <span className="pcoded-mtext">Ligne</span>
             </a>
