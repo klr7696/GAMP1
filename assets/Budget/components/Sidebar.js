@@ -21,7 +21,7 @@ class Sidebar extends Component {
                       </a>
                     </li>
                     <li className="">
-                      <a href="#/livres">
+                      <a href="#/livres/liste">
                       <i className="feather icon-list"></i>
                         <span className="pcoded-mtext">Consulter</span>
                       </a>

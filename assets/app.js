@@ -3,8 +3,8 @@ import ReactDom from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Sidebar from "./Budget/components/Sidebar";
 import Header from "./Budget/components/Header";
-import Content from './Budget/components/Content';
 import Load from "./Budget/components/Load";
+import Content from './Budget/components/Content';
 
 
 class App extends Component {

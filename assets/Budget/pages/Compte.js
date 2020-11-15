@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { ColumnDirective, ColumnsDirective, Filter, Inject, Page, TreeGridComponent } from '@syncfusion/ej2-react-treegrid';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import LivreAPI from '../services/LivreAPI';
+import LivreCard from './forms/LivreCard';
 
 export const CompteAdd = () => {
   return (
@@ -280,31 +280,18 @@ export const Compte = () => {
   );
 };
 
-export const CompteList =() => {
+export const CompteList =(props) => {
+const {id = ""} = props.match.params;
 
-  const {id = "new"} = props.match.params;
+const [compte, setCompte] = useState([]);
 
-  const [compte, setCompte] = useState({});
-  
-  const fetchComptes = async id =>{
-    try{
-      const id=2;
-      const data = await axios
-      .get(`http://localhost:8000/api/livres/1/lignes?hierachieLigne=CHAPITRE` )
-      .then(response => response.data);
-      const {numeroLigne, hierachieLigne, libelleLigne, nomCat} = data
-  
-      setCompte({numeroLigne, hierachieLigne, libelleLigne, nomCat});
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-  
-  useEffect(() => {
-    if(id !== "new"){
-   fetchComptes(id);
-    }
-  }, [id])
+useEffect(() => {
+  axios
+      .get(`http://localhost:8000/api/livres/${id}/lignes?hierachieLigne=CHAPITRE`)
+      .then((response) => response.data["hydra:member"])
+      .then((data) => setCompte(data))
+      .catch((error) => console.log(error.response));
+}, []);
 
     return (
       

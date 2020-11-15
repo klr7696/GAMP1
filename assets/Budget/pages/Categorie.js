@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { Pagination } from "../components/Pagination";
 import CategoriesAPI from "../services/categorieAPI";
+import { Field } from "./forms/Field";
+
 
 export const CategorieAdd = ({match, history}) => {
   const {id="new"} = match.params;
@@ -10,17 +13,23 @@ export const CategorieAdd = ({match, history}) => {
     abreviationCat: "",
   });
 
+  const [errors, setErrors] = useState({
+    nomCat: "",
+    abreviationCat: "" 
+  });
+
   
   const [editing, setEditing] = useState(false);
 
   const fetchCategorie = async id => {
     try {
-      const {nomCat, abreviationCat} = await CategoriesAPI.find(
+      const {nomCat, abreviationCat} = 
+      await CategoriesAPI.find(
         id
       );
       setCategorie({nomCat, abreviationCat});
     }catch (error) {
-      history.replace("/categories");
+      history.replace("/categories/liste");
     }
   };
 
@@ -42,13 +51,25 @@ export const CategorieAdd = ({match, history}) => {
     try {
       if (editing) {
         await CategoriesAPI.update(id, categorie);
+        toast.success("Catégorie modifié");
       } else {
         await CategoriesAPI.create(categorie);
-        history.replace("/categories")
+        toast.error("Catégorie Ajouté");
+        history.replace("/categories/liste")
       }
-     
+     setErrors({});
     } catch ({response}) {
-     
+      const  {violations} = response.data;
+
+      if (violations) {
+        const apiErrors = {};
+        violations.forEach(({propertyPath, message}) => {
+          apiErrors[propertyPath] =message;
+        });
+
+        setErrors(apiErrors);
+        toast.error("Erreur");
+      }
     }
   };
 
@@ -59,22 +80,17 @@ export const CategorieAdd = ({match, history}) => {
           <h3>Modification de catégories de ligne</h3>
         )}
         <form onSubmit={handleSubmit} className="j-pro">
-          <div className="j-content">
-            <div className="j-unit">
-              <label className="j-label">DENOMINATION</label>
-              <input
+              <Field
+                label="DENOMINATION"
                 type="text"
                 name="nomCat"
                 placeholder="nom de la catégorie"
                 value={categorie.nomCat}
                 onChange={handleChange}
-               
+                error={errors.nomCat}
               />
-            </div>
-
-            <div className="j-unit">
-              <label className="j-label">ABREVIATION</label>
-              <input
+              <Field
+                label="ABREVIATION"
                 name="abreviationCat"
                 type="text"
                 className="form-control form-control-uppercase"
@@ -82,12 +98,8 @@ export const CategorieAdd = ({match, history}) => {
                 maxLength="10"
                 value={categorie.abreviationCat}
                 onChange={handleChange}
-               
+                error={errors.abreviationCat}
               />
-            </div>
-
-            <div className="j-response" />
-          </div>
           {/* end /.content */}
           <div className="j-footer">
             <button type="submit" className="btn btn-primary">
@@ -111,7 +123,9 @@ const fetchCategories = async () =>{
   try {
     const data = await CategoriesAPI.findAll();
     setCategories(data);
+    toast.success("Chargé Avec succès");
   } catch (error) {
+    toast.error("erreur de chargement");
     console.log(error);
   }
 };
@@ -126,9 +140,12 @@ const handleDelete = async id => {
 
   try {
     await CategoriesAPI.delete(id)
+    toast.info("Catégorie supprimée");
   } catch (error) {
     setCategories(originalCategories);
+    toast.info("Catégorie non supprimée");
   } 
+ 
 }
 
 const handlePageChange = page => {
@@ -139,7 +156,7 @@ const handleSearch= ({currentTarget}) =>{
   setSearch(currentTarget.value);
   setCurrentPage(1);
 }
-const itemsPerPage = 5;
+const itemsPerPage = 6;
 
 const filteredCategories = categories.filter(
   c => 

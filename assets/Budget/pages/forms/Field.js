@@ -7,11 +7,11 @@ export const Field = ({
     onChange,
     placeholder,
     type = "text",
-    error = ""
+    error = "",
+    maxLength
 }) => (
-    <div className="form-group row">
-            <label className="col-sm-2 col-form-label sub-title" htmlFor={name}> {label} </label>
-                <div className="col-sm-6">
+    <div className="j-content">
+         <label className="j-label" htmlFor={name}> {label} </label>
             <input 
             value={value}
             onChange={onChange}
@@ -20,9 +20,11 @@ export const Field = ({
             name={name}
             id={name}
             className={"form-control" + (error && "is-invalid")}
+            maxLength={maxLength}
+            error={error}
         />
-        </div>
         {error && <p className="invalid-feedback">{error}</p> }
+        
         </div>
 );
 

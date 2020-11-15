@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LivreCard from "./forms/LivreCard";
 import { Link } from "react-router-dom";
-import { data } from "jquery";
 
 export const LivreAdd = () => {
   return (
     <div className="col-sm-12">
       <div className="j-wrapper j-wrapper-640">
-        <form method="post" className="j-pro" id="j-pro" noValidate>
+        <form method="post" className="j-pro">
           <div className="j-content">
             {/* start name */}
             <div className="j-unit">
@@ -103,18 +102,14 @@ export const LivreList = () => {
 export const LivreDetail = (props) => {
   const {id = "new"} = props.match.params;
 
-  const [livre, setLivre] = useState({
-    anneeRef:"", 
-    decretLivre:"", 
-    adoptionDate:""
-  });
+  const [livre, setLivre] = useState({});
 
   const fetchLivres = async id =>{
     try{
       const data = await axios
       .get("http://localhost:8000/api/livres/" + id)
       .then(response => response.data);
-      const {anneeRef, decretLivre, adoptionDate,executionDate,descriptionLivre,nombreCompte} =data
+      const {anneeRef, decretLivre, adoptionDate,executionDate,descriptionLivre,nombreCompte} = data
   
       setLivre({anneeRef, decretLivre, adoptionDate,executionDate,descriptionLivre,nombreCompte});
     } catch (error) {
@@ -131,15 +126,15 @@ export const LivreDetail = (props) => {
   return (
       <div>
       { livre ? (
-          <div className ="row">
-          <div className="col-sm-10 offset-m2">
-                  <div className="card hoverable">
+        <div className="col-md-12">
+          <div className ="card social-card bg-simple-c-blue">
+          <div className="card-block">
+                  <div className="row align-items-center">
+                  <div class="col-auto">
+                    <i class="feather icon-book f-40 text-c-green social-icon"></i>
+                </div>
+                <div className="col">
               <h2 className ="text-center"> {livre.anneeRef} </h2>
-                    <div className="card-image">
-                    <i className="feather icon-book text-c-lite-green d-block f-40" />
-                      </div>                      
-                    <div className="card-stacked">
-                          <div className="card-content">
                               <table className="bordered striped">
                                   <tbody>
                                       <tr>
@@ -164,13 +159,13 @@ export const LivreDetail = (props) => {
                                       </tr>
                                   </tbody>
                               </table>
-                          </div>
-                      <div className= "card-action">
+                      <div className= "card-action" text-right>
                           <Link to ="/">Retour</Link>
                       </div>
                   </div>
               </div>
           </div>
+      </div>
       </div>
       ) : (
           <h4 className="center">Aucun livre à afficher !</h4>          
