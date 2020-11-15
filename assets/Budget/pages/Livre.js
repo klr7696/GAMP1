@@ -4,6 +4,7 @@ import LivreCard from "./forms/LivreCard";
 import { Link } from "react-router-dom";
 
 export const LivreAdd = () => {
+
   return (
     <div className="col-sm-12">
       <div className="j-wrapper j-wrapper-640">
@@ -130,8 +131,8 @@ export const LivreDetail = (props) => {
           <div className ="card social-card bg-simple-c-blue">
           <div className="card-block">
                   <div className="row align-items-center">
-                  <div class="col-auto">
-                    <i class="feather icon-book f-40 text-c-green social-icon"></i>
+                  <div className="col-auto">
+                    <i className="feather icon-book f-40 text-c-green social-icon"></i>
                 </div>
                 <div className="col">
               <h2 className ="text-center"> {livre.anneeRef} </h2>
