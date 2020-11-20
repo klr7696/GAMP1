@@ -8,7 +8,8 @@ export const Field = ({
     placeholder,
     type = "text",
     error = "",
-    maxLength
+    maxLength,
+    required
 }) => (
     <div className="j-content">
          <label className="j-label" htmlFor={name}> {label} </label>
@@ -22,6 +23,7 @@ export const Field = ({
             className={"form-control" + (error && "is-invalid")}
             maxLength={maxLength}
             error={error}
+            required={required}
         />
         {error && <p className="invalid-feedback">{error}</p> }
         
@@ -35,12 +37,13 @@ export const Field1 = ({
     value,
     onChange,
     placeholder,
-    type ="text",
-    error=""
+    type = "text",
+    error = "",
+    maxLength,
+    required
 }) => (
-        <div className="form-group row">
-            <label className="col-sm-2 col-form-label sub-title" htmlFor={name}> {label} </label>
-        <div className="col-sm-6">
+    <div className="j-content">
+         <label className="j-label" htmlFor={name}> {label} </label>
             <textarea 
             value={value}
             onChange={onChange}
@@ -48,9 +51,12 @@ export const Field1 = ({
             placeholder={placeholder || label }
             name={name}
             id={name}
-            className={" form-control" + (error && "is-invalid")}
+            className={"form-control" + (error && "is-invalid")}
+            maxLength={maxLength}
+            error={error}
+            required={required}
         />
-        </div>
         {error && <p className="invalid-feedback">{error}</p> }
+        
         </div>
 );

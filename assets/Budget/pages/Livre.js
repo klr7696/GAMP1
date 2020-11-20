@@ -2,66 +2,130 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LivreCard from "./forms/LivreCard";
 import { Link } from "react-router-dom";
+import { Field, Field1 } from "./forms/Field";
+import { toast } from "react-toastify";
+import LivresAPI from "../services/LivreAPI";
 
-export const LivreAdd = () => {
+export const LivreAdd = ({history}) => {
+
+
+  const [livre, setLivre] = useState({
+    anneeRef: "",
+    decretLivre: "",
+    adoptionDate: "",
+    executionDate: "",
+    descriptionLivre: ""
+  });
+
+  const [errors, setErrors] = useState(
+  {
+    anneeRef: "",
+    decretLivre: "",
+    adoptionDate: "",
+    executionDate: "",
+    descriptionLivre: ""
+  });
+
+  
+  const handleChange = ({ currentTarget }) => {
+    const { name, value } = currentTarget;
+    setLivre({ ...livre, [name]: value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+        await LivresAPI.create(livre);
+        toast.success("Livre Ajouté");
+        history.replace("/livres/liste")
+
+     setErrors({});
+    } catch ({response}) {
+      const  {violations} = response.data;
+
+      if (violations) {
+        const apiErrors = {};
+        violations.forEach(({propertyPath, message}) => {
+          apiErrors[propertyPath] =message;
+        });
+
+        setErrors(apiErrors);
+        toast.error("Erreur");
+      }
+    }
+  };
+
 
   return (
-    <div className="col-sm-12">
-      <div className="j-wrapper j-wrapper-640">
-        <form method="post" className="j-pro">
-          <div className="j-content">
-            {/* start name */}
-            <div className="j-unit">
-              <label className="j-label">ANNEE</label>
-              <input id="children" type="text" name="anneeRef" placeholder="2020" />
-            </div>
-            {/* end name */}
-            {/* start email phone */}
-            <div className="j-unit">
-              <label className="j-label">DECRET</label>
-              <input
+    <div className="page">
+      <div className="j-wrapper j-wrapper-660">
+        <form className="j-pro" onSubmit={handleSubmit}>
+
+              <Field 
+              label="ANNEE"
+              type="text" 
+              name="anneeRef" 
+              placeholder="2020" 
+              value={livre.anneeRef}
+              onChange={handleChange}
+              error={errors.anneeRef}
+              required
+              />
+
+              <Field
+               label="DECRET"
                 type="text"
                 name="decretLivre"
                 placeholder="décret de la nomenclature"
+                value={livre.decretLivre}
+              onChange={handleChange}
+              error={errors.decretLivre}
+              required
               />
-            </div>
 
             <div className="j-row">
-              <div className="j-span6 j-unit">
-                <label className="j-label">Date d'adoption</label>
-                <input
-                  type="date"
-                  className="form-control"
-                  placeholder="Numéro"
+            <div className="j-span6">
+                <Field
+                  label= "DATE ADOPTION"
+                  type="text"
+                  name="adoptionDate"
+                  value={livre.adoptionDate}
+                  onChange={handleChange}
+                  error={errors.adoptionDate}
+                  required
                 />
               </div>
-              <div className="j-span6 j-unit">
-                <label className="j-label">Date de mise en Oeuvre</label>
-                <input
-                  type="date"
-                  className="form-control"
-                  placeholder="Numéro"
+              <div className="j-span6">
+                <Field
+                 label="DATE EXECUTION"
+                  type="text"
+                  name="executionDate"
+                  value={livre.executionDate}
+                  onChange={handleChange}
+                  error={errors.executionDate}
+                  required
                 />
-              </div>
+                </div>
             </div>
 
-            <div className="j-unit">
-              <label className="j-label">REMARQUE</label>
-              <textarea
+              <Field1
+                label="REMARQUE"
                 name="descriptionLivre"
                 placeholder="description de la nomenclature"
+                value={livre.descriptionLivre}
+                onChange={handleChange}
+                error={errors.descriptionLivre}
               />
-            </div>
-            <div className="j-unit">
+          
+           {/* <div className="j-unit">
               <label className="j-label">FICHIER JOINT</label>
-              <input type="file" id="children" name="children" />
-            </div>
-            {/* end message */}
-            {/* start response from server */}
-            <div className="j-response" />
-            {/* end response from server */}
-          </div>
-          {/* end /.content */}
+              <Field 
+              type="file" 
+              id="children" 
+              name="children" 
+              />
+            </div>} */}
           <div className="j-footer">
             <button type="submit" className="btn btn-primary">
               CREER
@@ -161,7 +225,7 @@ export const LivreDetail = (props) => {
                                   </tbody>
                               </table>
                       <div className= "card-action" text-right>
-                          <Link to ="/">Retour</Link>
+                          <Link to ="/livres/liste">Retour</Link>
                       </div>
                   </div>
               </div>

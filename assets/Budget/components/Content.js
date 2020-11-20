@@ -40,7 +40,7 @@ class Content extends React.Component {
       </div>
       </main>
       </HashRouter>
-     
+     <ToastContainer/>
       </>
     );
   }

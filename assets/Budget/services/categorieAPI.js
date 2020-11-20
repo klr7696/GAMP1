@@ -17,9 +17,9 @@ function deleteCategorie(id) {
     .delete("http://localhost:8000/api/categories/" + id);
 }
 
-function createCategorie(categorie) {
+function create(categorie) {
     return axios
-    .post("http://localhost:8000/api/categories/", categorie)
+    .post("http://localhost:8000/api/categories", categorie)
 }
 
 function update(id, categorie) {
@@ -31,6 +31,6 @@ export default {
     findAll,
     find,
     update,
-    create:createCategorie,
+    create,
     delete: deleteCategorie
 };

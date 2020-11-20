@@ -143,17 +143,30 @@ export const CompteAffich = () => {
 
   useEffect(() => {
     axios
-    .get("http://localhost:8000/api/lignes/32/fils")
+    .get("http://localhost:8000/api/lignes/2")
     .then(response => response.data["hydra:member"])
     .then(data =>setChapitre(data));
   }, [])
 
   return (
 
-    <>
+    <div className="row">
     <div className="col-lg-4">
       <div className="card pre-scrollable1">
        <div className="card-block">
+       <div className="form-group row">
+         <div className="col-sm-6">
+              <h4>Chapitre</h4>
+         </div>
+         <div className="col-sm-6">
+                  <input
+                  type="text"
+                  
+                  className="form-control"
+                  placeholder="Rechercher ..."
+                  />
+         </div>
+        </div>
               <table className="table table-hover table-bordered">
                   <thead>
                   <tr>
@@ -165,8 +178,8 @@ export const CompteAffich = () => {
                   <tbody>
                     {chapitre.map(chap =>  
                     <tr key={chap.id}>
-                      <td>60</td>
-                      <td>Achat de carburant </td>
+                      <td>{chap.numeroLigne}</td>
+                      <td>{chap.libelleLigne}</td>
                       <td>
                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
@@ -179,6 +192,8 @@ export const CompteAffich = () => {
           </div>
         </div>
       </div>
+
+
 
       <div className="col-lg-4">
       <div className="card card-block pre-scrollable1">
@@ -255,7 +270,7 @@ export const CompteAffich = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
 
 
   );
