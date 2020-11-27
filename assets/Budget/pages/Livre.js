@@ -2,31 +2,43 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LivreCard from "./forms/LivreCard";
 import { Link } from "react-router-dom";
-import { Field, Field1 } from "./forms/Field";
-import { toast } from "react-toastify";
 import LivresAPI from "../services/LivreAPI";
+import { toast } from "react-toastify";
 
-export const LivreAdd = ({history}) => {
+export const LivreAdd = ({match, history}) => {
 
+  const {id="new"} = match.params;
 
   const [livre, setLivre] = useState({
     anneeRef: "",
     decretLivre: "",
     adoptionDate: "",
     executionDate: "",
-    descriptionLivre: ""
-  });
-
-  const [errors, setErrors] = useState(
-  {
-    anneeRef: "",
-    decretLivre: "",
-    adoptionDate: "",
-    executionDate: "",
-    descriptionLivre: ""
+    descriptionLivre: "",
   });
 
   
+  const [editing, setEditing] = useState(false);
+
+  const fetchLivre = async id => {
+    try {
+      const { anneeRef, decretLivre, adoptionDate, executionDate, descriptionLivre} = 
+      await LivresAPI.find(
+        id
+      );
+      setLivre({anneeRef, decretLivre, adoptionDate, executionDate, descriptionLivre});
+    }catch (error) {
+      history.replace("/livres/liste");
+    }
+  };
+
+  useEffect(() => {
+    if (id !== "new") {
+      setEditing(true);
+      fetchLivre(id);
+    }
+  }, [id]);
+
   const handleChange = ({ currentTarget }) => {
     const { name, value } = currentTarget;
     setLivre({ ...livre, [name]: value });
@@ -36,11 +48,14 @@ export const LivreAdd = ({history}) => {
     event.preventDefault();
 
     try {
+      if (editing) {
+        await LivresAPI.update(id, livre);
+        toast.success("Livre modifié");
+      } else {
         await LivresAPI.create(livre);
-        toast.success("Livre Ajouté");
+        toast.error("Livre Ajouté");
         history.replace("/livres/liste")
-
-     setErrors({});
+      }
     } catch ({response}) {
       const  {violations} = response.data;
 
@@ -49,83 +64,80 @@ export const LivreAdd = ({history}) => {
         violations.forEach(({propertyPath, message}) => {
           apiErrors[propertyPath] =message;
         });
-
-        setErrors(apiErrors);
         toast.error("Erreur");
       }
     }
   };
 
-
   return (
-    <div className="page">
-      <div className="j-wrapper j-wrapper-660">
-        <form className="j-pro" onSubmit={handleSubmit}>
-
-              <Field 
-              label="ANNEE"
-              type="text" 
-              name="anneeRef" 
-              placeholder="2020" 
+    <div className="col-sm-12">
+      <div className="j-wrapper j-wrapper-640">
+        <form  className="j-pro" onSubmit={handleSubmit}>
+          <div className="j-content">
+            <div className="j-unit main">
+              <label className="j-label">ANNEE</label>
+              <input 
+              type="number" 
+              name="anneeRef"
+              className="form-control"
               value={livre.anneeRef}
-              onChange={handleChange}
-              error={errors.anneeRef}
-              required
-              />
-
-              <Field
-               label="DECRET"
+              onChange={handleChange} 
+             />
+            </div>
+           
+            <div className="j-unit">
+              <label className="j-label">DECRET</label>
+              <input
                 type="text"
+                className="form-control"
                 name="decretLivre"
                 placeholder="décret de la nomenclature"
                 value={livre.decretLivre}
-              onChange={handleChange}
-              error={errors.decretLivre}
-              required
+                onChange={handleChange}
               />
-
-            <div className="j-row">
-            <div className="j-span6">
-                <Field
-                  label= "DATE ADOPTION"
-                  type="text"
-                  name="adoptionDate"
-                  value={livre.adoptionDate}
-                  onChange={handleChange}
-                  error={errors.adoptionDate}
-                  required
-                />
-              </div>
-              <div className="j-span6">
-                <Field
-                 label="DATE EXECUTION"
-                  type="text"
-                  name="executionDate"
-                  value={livre.executionDate}
-                  onChange={handleChange}
-                  error={errors.executionDate}
-                  required
-                />
-                </div>
             </div>
 
-              <Field1
-                label="REMARQUE"
+            <div className="j-row">
+              <div className="j-span6 j-unit">
+                <label className="j-label">Date d'adoption</label>
+                <input
+                  type="date"
+                  name="adoptionDate"
+                  className="form-control"
+                  placeholder="Numéro"
+                  value={livre.adoptionDate}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="j-span6 j-unit">
+                <label className="j-label">Date de mise en Oeuvre</label>
+                <input
+                  type="date"
+                  name="executionDate"
+                  className="form-control"
+                  placeholder="Numéro"
+                  value={livre.executionDate}
+                 onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="j-unit">
+              <label className="j-label">REMARQUE</label>
+              <textarea
                 name="descriptionLivre"
                 placeholder="description de la nomenclature"
+                className="form-control"
                 value={livre.descriptionLivre}
                 onChange={handleChange}
-                error={errors.descriptionLivre}
               />
-          
-           {/* <div className="j-unit">
+            </div>
+            <div className="j-unit">
               <label className="j-label">FICHIER JOINT</label>
-              <Field 
-              type="file" 
-              id="children" 
-              name="children" 
-              />
-            </div>} */}
+              <input type="file" id="children" name="children"  className="form-control"/>
+            </div>
+          </div>
+        
           <div className="j-footer">
             <button type="submit" className="btn btn-primary">
               CREER
@@ -141,12 +153,34 @@ export const LivreAdd = ({history}) => {
 export const LivreList = () => {
   const [livres, setLivres] = useState([]);
 
+  const fetchLivres = async () =>{
+    try {
+      const data = await LivresAPI.findAll();
+      setLivres(data);
+      toast.success("Chargé Avec succès");
+    } catch (error) {
+      toast.error("erreur de chargement");
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/livres")
-      .then((response) => response.data["hydra:member"])
-      .then((data) => setLivres(data));
+    fetchLivres();
   }, []);
+
+  const handleDelete = async id => {
+    const originalLivres = [...livres];
+    setlivres(livres.filter(livre => livre.id !== id));
+  
+    try {
+      await LivresAPI.delete(id)
+      toast.success("Livre supprimée");
+    } catch (error) {
+      setlivres(originalLivres);
+      toast.error("Livre non supprimée");
+    } 
+   
+  }
 
   return (
     <div>
@@ -176,7 +210,7 @@ export const LivreDetail = (props) => {
       .then(response => response.data);
       const {anneeRef, decretLivre, adoptionDate,executionDate,descriptionLivre,nombreCompte} = data
   
-      setLivre({anneeRef, decretLivre, adoptionDate,executionDate,descriptionLivre,nombreCompte});
+      setLivre({anneeRef, decretLivre, adoptionDate, executionDate, descriptionLivre, nombreCompte});
     } catch (error) {
       console.log(error.response);
     }
@@ -225,7 +259,7 @@ export const LivreDetail = (props) => {
                                   </tbody>
                               </table>
                       <div className= "card-action" text-right>
-                          <Link to ="/livres/liste">Retour</Link>
+                          <Link to ="/">Retour</Link>
                       </div>
                   </div>
               </div>

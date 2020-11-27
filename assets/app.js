@@ -1,6 +1,5 @@
 import React , { Component } from 'react';
-import ReactDom from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 import Sidebar from "./Budget/components/Sidebar";
 import Header from "./Budget/components/Header";
 import Load from "./Budget/components/Load";
@@ -29,4 +28,4 @@ class App extends Component {
     }
 }
 
-ReactDom.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
