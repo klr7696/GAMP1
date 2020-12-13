@@ -1,20 +1,29 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
+import { useHistory } from "react-router-dom";
 import LivreAPI from "../services/LivreAPI"
 import Select from "./forms/Select";
 
-export const ChoixLivre = (props) => {
-  const [compte, setCompte] = useState({
-    anneeRef: ""
+const ChoixLivre = () => {
+
+  const history = useHistory();
+
+    function goToLigne(id) {
+      return history.push(`/livre/${id}/lignes`);
+    }
+    const goToAddLigne =(id) => {
+      history.push(`/livre/${id}/ligne/new`);
+  }
+
+  const [choix, setChoix] = useState({
+    livre:""
   });
 
-  const [errors, setErrors] = useState({
-    anneeRef: ""
-  });
+
+  const [livres, setLivres] = useState([]);
 
   const handleChange = ({currentTarget}) => {
     const {name, value} = currentTarget;
-    setCompte({...compte, [name]:value});
+    setChoix({...choix, [name]:value});
   };
 
 
@@ -30,37 +39,40 @@ export const ChoixLivre = (props) => {
   useEffect(() => {
    fetchLivres();
   }, [])
+  ;
 
   return (
     <div className="col-sm-12">
       <div className="j-wrapper j-wrapper-640">
         <form className="j-pro">
+         
           <div className="j-content">
-            <div className="j-unit">
-              <label className="j-label">ANNEE</label>
-              <Select
-                      name="livre"
-                      label="Année"
-                      value={compte.livre}
-                      error={errors.livre}
-                      onChange={handleChange}
-              >
-               {livres.map(livre =>(
-                <option key={livre.id} value={livre.id} >
-                  {livre.anneeRef}
-                </option>
-               ))}
-              </Select>
-            </div>
-            <div className="j-response" />
+            <Select  
+                id="livre" 
+                name="livre" 
+                label="ANNEE" 
+                onChange={handleChange}
+            >
+              {livres.map(livre => 
+              <option key={livre.id} value={livre.id}> 
+                {livre.anneeRef}
+              </option>
+              )}
+            </Select>
           </div>
+         
           <div className="j-footer">
-            <button type="submit" className="btn btn-primary">
-              Valider
+            <button className="btn btn-primary" onClick={() => goToAddLigne(document.getElementById("livre").selectedIndex+1)}>
+              Ajouter Ligne
+            </button>
+            <button className="btn btn-secondary m-r-50"  onClick={() => goToLigne(document.getElementById("livre").selectedIndex+1)}> 
+              Consulter Ligne
             </button>
           </div>
+           
         </form>
       </div>
     </div>
   );
 };
+export default ChoixLivre;

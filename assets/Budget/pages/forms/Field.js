@@ -20,12 +20,10 @@ export const Field = ({
             placeholder={placeholder || label }
             name={name}
             id={name}
-            className={"form-control" + (error && "is-invalid")}
             maxLength={maxLength}
             error={error}
             required={required}
         />
-        {error && <p className="invalid-feedback">{error}</p> }
         
         </div>
 );

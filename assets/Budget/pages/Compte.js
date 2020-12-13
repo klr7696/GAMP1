@@ -2,9 +2,26 @@ import React, {useEffect, useState} from 'react';
 import { ColumnDirective, ColumnsDirective, Filter, Inject, Page, TreeGridComponent } from '@syncfusion/ej2-react-treegrid';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import LivreCard from './forms/LivreCard';
+import Select from './forms/Select';
+
 
 export const CompteAdd = () => {
+
+  const [compte, setCompte] = useState({
+    numeroLigne: "",
+    libelleLigne: "",
+    descriptionLigne: "",
+    hierachieLigne: "",
+    livreCompte: "",
+    categorieLigne: "",
+  });
+
+  const handleChange = ({ currentTarget }) => {
+    const { name, value } = currentTarget;
+    setCompte({ ...compte, [name]: value });
+  };
+
+
   return (
           <div className="pre-scrollable">
           
@@ -12,8 +29,7 @@ export const CompteAdd = () => {
               
               <div className="content">
                 {/* start show/hide elements select */}
-                <div className="mb-2 card-header">
-            </div>
+               
                 <div className="col-sm-12">
                 
                 <div className="form-group row">
@@ -23,6 +39,8 @@ export const CompteAdd = () => {
                       type="number"
                       className="form-control"
                       placeholder="Numéro"
+                      onChange={handleChange} 
+                      value={compte.numeroLigne}
                     />
                   </div>
                 </div>
@@ -33,6 +51,8 @@ export const CompteAdd = () => {
                       type="text"
                       className="form-control"
                       placeholder="Libéllé"
+                      onChange={handleChange} 
+                      value={compte.libelleLigne}
                     />
                   </div>
                 </div>
@@ -43,6 +63,8 @@ export const CompteAdd = () => {
                       type="text"
                       className="form-control"
                       placeholder="Remarque"
+                      onChange={handleChange} 
+                      value={compte.descriptionLigne}
                     />
                   </div>
                 </div>
@@ -53,17 +75,21 @@ export const CompteAdd = () => {
                       <input
                         className="form-check-input"
                         type="radio"
-                        name="gender"
-                        id="gender-1"
+                        name="chapitre"
                         defaultChecked="checked"
-                      />{" "}
-                      Chapitre
+                        onChange={handleChange} 
+                        value={compte.hierachieLigne}
+                      />
+                      CHAPITRE
                     </label>
-                    <select className="custom-select">
-                      <option selected="">Catégorie</option>
-                      <option value="1">DEP FONC</option>
-                      <option value="2">DEP INV</option>
-                    </select>
+                    <Select  
+                      name="categorie" 
+                      value={compte.categorieLigne} 
+                      onChange={handleChange} >
+                      <option value="fonc">DEPENSE DE FONCTIONNEMENT</option>
+                      <option value="inves">DEPENSE D'INVESTISSEMENT</option>
+                    </Select>
+                      
                   </div>
                   <div className="form-check form-check-inline col-md-3">
                     <label className="form-check-label">
@@ -72,15 +98,16 @@ export const CompteAdd = () => {
                         type="radio"
                         name="gender"
                         id="gender-2"
-                        defaultValue="option2"
-                      />{" "}
-                      Article
+                        onChange={handleChange} 
+                        value={compte.hierachieLigne}
+                      />
+                      ARTICLE
                     </label>
-                    <select className="custom-select">
+                    <Select label="" name="chapitre" value={compte.categorieLigne} onChange={handleChange} >
                       <option selected="">Chapitre</option>
                       <option value="1">60</option>
                       <option value="2">61</option>
-                    </select>
+                    </Select>
                   </div>
                   <div className="form-check form-check-inline col-md-3">
                     <label className="form-check-label">
@@ -88,18 +115,18 @@ export const CompteAdd = () => {
                         className="form-check-input"
                         type="radio"
                         name="gender"
-                        id="gender-2"
-                        defaultValue="option2"
-                      />{" "}
-                      Paragraphe
+                        id="gender-3"
+                        onChange={handleChange} 
+                        value={compte.hierachieLigne}
+                      />
+                      PARAGRAPHE
                     </label>
-                    <select className="custom-select">
+                    <Select name="article" value={compte.categorieLigne} onChange={handleChange} >
                       <option selected="">Article</option>
                       <option value="1">600</option>
                       <option value="2">610</option>
-                    </select>
+                    </Select>
                   </div>
-                  <span className="messages" />
                 </div>
               
                 </div>
@@ -114,7 +141,7 @@ export const CompteAdd = () => {
           </div>
   );
 };
-
+{/*
 export const CompteNotifi = () => {
   return (
 
@@ -139,29 +166,29 @@ export const CompteNotifi = () => {
 
 export const CompteAffich = () => {
 
-  const [chapitre, setChapitre] =useState([]);
+  const [compte, setCompte] =useState([]);
 
   useEffect(() => {
     axios
-    .get("http://localhost:8000/api/lignes/2")
-    .then(response => response.data["hydra:member"])
-    .then(data =>setChapitre(data));
-  }, [])
+        .get(`http://localhost:8000/api/livres/1/lignes?hierachieLigne=CHAPITRE`)
+        .then((response) => response.data["hydra:member"])
+        .then((data) => setCompte(data))
+        .catch((error) => console.log(error.response));
+  }, []);
 
   return (
-
+  
     <div className="row">
     <div className="col-lg-4">
       <div className="card pre-scrollable1">
        <div className="card-block">
        <div className="form-group row">
          <div className="col-sm-6">
-              <h4>Chapitre</h4>
+              <h6>Chapitre</h6>
          </div>
          <div className="col-sm-6">
                   <input
                   type="text"
-                  
                   className="form-control"
                   placeholder="Rechercher ..."
                   />
@@ -176,14 +203,14 @@ export const CompteAffich = () => {
                   </tr>
                   </thead>
                   <tbody>
-                    {chapitre.map(chap =>  
+                    {compte.map (chap =>  
                     <tr key={chap.id}>
                       <td>{chap.numeroLigne}</td>
                       <td>{chap.libelleLigne}</td>
                       <td>
                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
                           <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
-                          <a href="#!" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
+                          <a href="livres/1/lignes?hierachieLigne=fils" className="text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Lister"><i className="icofont icofont-square-right"></i></a>
                       </td>
                     </tr>)}
                    
@@ -209,8 +236,8 @@ export const CompteAffich = () => {
           </thead>
           <tbody>
             <tr>
-              <td>60</td>
-              <td>Achat de carburant</td>
+              <td>{chap.numeroLigne}</td>
+              <td>{chap.libelleLigne}</td>
               <td>
                   <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i className="icofont icofont-ui-edit" /></a>
                    <a href="#!" className="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i className="icofont icofont-delete-alt" /></a>
@@ -271,10 +298,8 @@ export const CompteAffich = () => {
         </div>
       </div>
     </div>
-
-
   );
-};
+};*/}
 
 
 export const Compte = () => {
@@ -284,12 +309,12 @@ export const Compte = () => {
         <div className=" col-lg-8">
           <CompteAdd />
         </div>
-        <div className="col-lg-4">
+       { /*<div className="col-lg-4">
           <CompteNotifi />
         </div>
       <div className="col-lg-12">
         <CompteAffich />
-      </div>
+  </div>*/}
       </div>
     </section>
   );

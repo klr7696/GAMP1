@@ -8,7 +8,7 @@ function findAll() {
 
 function find(id) {
     return axios 
-    .get("http://localhost:8000/api/categories")
+    .get("http://localhost:8000/api/categories/" + id)
     .then(response => response.data);
 }
 

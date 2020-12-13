@@ -79,6 +79,7 @@ export const LivreAdd = ({match, history}) => {
               <input 
               type="number" 
               name="anneeRef"
+              placeholder="2020"
               className="form-control"
               value={livre.anneeRef}
               onChange={handleChange} 
@@ -151,6 +152,7 @@ export const LivreAdd = ({match, history}) => {
 };
 
 export const LivreList = () => {
+  
   const [livres, setLivres] = useState([]);
 
   const fetchLivres = async () =>{
@@ -168,19 +170,6 @@ export const LivreList = () => {
     fetchLivres();
   }, []);
 
-  const handleDelete = async id => {
-    const originalLivres = [...livres];
-    setlivres(livres.filter(livre => livre.id !== id));
-  
-    try {
-      await LivresAPI.delete(id)
-      toast.success("Livre supprimée");
-    } catch (error) {
-      setlivres(originalLivres);
-      toast.error("Livre non supprimée");
-    } 
-   
-  }
 
   return (
     <div>

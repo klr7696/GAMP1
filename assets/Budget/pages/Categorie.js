@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Pagination } from "../components/Pagination";
 import CategoriesAPI from "../services/categorieAPI";
@@ -64,7 +65,7 @@ export const CategorieAdd = ({match, history}) => {
       if (violations) {
         const apiErrors = {};
         violations.forEach(({propertyPath, message}) => {
-          apiErrors[propertyPath] =message;
+          apiErrors[propertyPath] = message;
         });
 
         setErrors(apiErrors);
@@ -76,15 +77,18 @@ export const CategorieAdd = ({match, history}) => {
   return (
     <div className="col-sm-12">
       <div className="j-wrapper j-wrapper-640">
+        <form onSubmit={handleSubmit} className="j-pro">
+        <div className="card-header">
         {(!editing && <h3>Création de catégories de ligne</h3>) || (
           <h3>Modification de catégories de ligne</h3>
         )}
-        <form onSubmit={handleSubmit} className="j-pro">
+            </div>
               <Field
                 label="DENOMINATION"
                 type="text"
                 name="nomCat"
-                placeholder="nom de la catégorie"
+                className="form-control"
+                placeholder="Nom de la catégorie"
                 value={categorie.nomCat}
                 onChange={handleChange}
                 error={errors.nomCat}
@@ -93,7 +97,7 @@ export const CategorieAdd = ({match, history}) => {
                 label="ABREVIATION"
                 name="abreviationCat"
                 type="text"
-                className="form-control form-control-uppercase"
+                className="form-control uppercase"
                 placeholder="ABR CAT"
                 maxLength="10"
                 value={categorie.abreviationCat}
@@ -118,6 +122,12 @@ export const CategorieList = () => {
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+
+  const history = useHistory();
+
+    function goToEdit(id) {
+      return history.push(`/categorie/${id}`);
+    }
 
 const fetchCategories = async () =>{
   try {
@@ -172,13 +182,13 @@ const paginatedCategories = Pagination.getData(
 
   return (
     <div className="control-pane">
-      <div className="control-section">
       <div className="card">
-        <div className="col-md-8">
-            <div className="card-header">
-              <h2>Liste des catégories de ligne</h2>
-            </div>
               <div className="dt-responsive table-responsive">
+              <div className="j-wrapper j-wrapper-640">
+              <form className="j-pro">
+              <div className="card-header">
+              <h3>Liste des catégories de ligne</h3>
+            </div>
               <div className="card-block">
                 <div className="form-group">
                   <input
@@ -186,7 +196,7 @@ const paginatedCategories = Pagination.getData(
                   onChange={handleSearch}
                   value={search}
                   className="form-control"
-                  placeholder="Rechercher ..."
+                  placeholder="Rechercher..."
                   />
                 </div>
                 <table className="table table-hover table-bordered">
@@ -203,10 +213,13 @@ const paginatedCategories = Pagination.getData(
                         <td>{categorie.nomCat}</td>
                         <td>{categorie.abreviationCat}</td>
                         <td className="text-center">
-                          <button className="m-r-35 text-muted"><i className="icofont icofont-ui-edit" /></button>
-                          <button 
+                          <Link className="m-r-35 text-muted" title="Modifier" onClick={()=> goToEdit(categorie.id)}>
+                            <i className="icofont icofont-ui-edit" />
+                            </Link>
+                          <Link  title="Supprimer"
                             onClick={()=> handleDelete(categorie.id)}
-                          ><i className="icofont icofont-delete-alt" /></button>
+                          ><i className="icofont icofont-delete-alt" />
+                          </Link>
                         </td>
                       </tr>
                     ))}
@@ -222,9 +235,9 @@ const paginatedCategories = Pagination.getData(
 )}
 
               </div>
+              </form>
             </div>
           </div>
-        </div>
       </div>
     </div>
   );
