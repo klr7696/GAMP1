@@ -1,12 +1,8 @@
 import React, {useState} from 'react'
 import './LivreCard.css';
 import {Link, useHistory} from 'react-router-dom'
-import LivresAPI from "../../services/LivreAPI";
-import { toast } from "react-toastify";
 
 const LivreCard = ({livre}) => {
-
-    const [livres, setLivres] = useState([]);
 
     const history = useHistory();
 
@@ -22,19 +18,6 @@ const LivreCard = ({livre}) => {
         history.push(`/livre/${id}/ligne/new`);
     }
 
-    const handleDelete = async id => {
-        const originalLivres = [...livres];
-        setLivres(livres.filter(livre => livre.id !== id));
-      
-        try {
-          await LivresAPI.delete(id)
-          toast.success("Livre supprimée");
-        } catch (error) {
-          setLivres(originalLivres);
-          toast.error("Livre non supprimée");
-        } 
-       
-      }
 
     return (
 
@@ -58,16 +41,13 @@ const LivreCard = ({livre}) => {
                     <Link  title="Ajouter des lignes">
                         <i class="feather icon-plus f-30  m-r-25" onClick={() => goToAddLigne (livre.id)}/>
                     </Link>
-                    <Link  title="Consulter les lignes" onClick={() => goToLigne (livre.id)}>
-                        <i class="feather icon-list f-30 m-r-25"/>
+                    <Link  title="Consulter les lignes" onClick={() => goToLigne(livre.id)}>
+                        <i class="feather icon-list f-10 m-r-25"/>
                     </Link>
-                    <Link  title="Supprimer le livre" onClick={()=> handleDelete(livre.id)}>
+                    <Link  title="Supprimer le livre">
                         <i class="feather icon-trash f-30 m-r-25"/>
                     </Link>
-                    <a>
                    
-                    </a>
-                    
             </div>
         </div>
     </div>
